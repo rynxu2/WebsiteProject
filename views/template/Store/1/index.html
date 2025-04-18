@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXURY EDITION - Thời trang cao cấp</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor cursor--outer"></div>
+    <div class="cursor cursor--inner"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader__container">
+            <div class="preloader__logo">
+                <span class="luxe">LUXURY</span>
+                <span class="edition">EDITION</span>
+            </div>
+            <div class="preloader__progress">
+                <div class="preloader__progress__bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__left">
+                    <button class="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="logo">
+                        <a href="index.html">
+                            <span class="luxe">LUXURY</span>
+                            <span class="edition">EDITION</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul class="main-menu">
+                        <li class="menu-item">
+                            <a href="#" class="menu-link active">
+                                <span>Trang chủ</span>
+                            </a>
+                        </li>
+                        
+                        <li class="menu-item menu-item-has-children">
+                            <a href="#" class="menu-link">
+                                <span>Thời trang nam</span>
+                                <i class="dropdown-icon fas fa-chevron-down"></i>
+                            </a>
+                            <div class="sub-menu mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu-row">
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Áo</h4>
+                                            <ul>
+                                                <li><a href="#">Áo sơ mi</a></li>
+                                                <li><a href="#">Áo thun</a></li>
+                                                <li><a href="#">Áo polo</a></li>
+                                                <li><a href="#">Áo khoác</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Quần</h4>
+                                            <ul>
+                                                <li><a href="#">Quần jeans</a></li>
+                                                <li><a href="#">Quần âu</a></li>
+                                                <li><a href="#">Quần shorts</a></li>
+                                                <li><a href="#">Quần jogger</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Phụ kiện</h4>
+                                            <ul>
+                                                <li><a href="#">Thắt lưng</a></li>
+                                                <li><a href="#">Ví</a></li>
+                                                <li><a href="#">Mũ</a></li>
+                                                <li><a href="#">Vớ</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col promo-col">
+                                            <div class="mega-menu-promo">
+                                                <img src="https://via.placeholder.com/300x200" alt="Khuyến mãi">
+                                                <div class="promo-content">
+                                                    <h5>Giảm giá 30%</h5>
+                                                    <p>Cho đơn hàng đầu tiên</p>
+                                                    <a href="#" class="btn btn-small">Mua ngay</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="menu-item menu-item-has-children">
+                            <a href="#" class="menu-link">
+                                <span>Thời trang nữ</span>
+                                <i class="dropdown-icon fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a href="#" class="menu-link">Váy đầm</a>
+                                </li>
+                                <li class="menu-item menu-item-has-children">
+                                    <a href="#" class="menu-link">Áo nữ</a>
+                                    <ul class="sub-menu">
+                                        <li class="menu-item"><a href="#" class="menu-link">Áo sơ mi</a></li>
+                                        <li class="menu-item"><a href="#" class="menu-link">Áo kiểu</a></li>
+                                        <li class="menu-item"><a href="#" class="menu-link">Áo croptop</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item"><a href="#" class="menu-link">Quần nữ</a></li>
+                                <li class="menu-item"><a href="#" class="menu-link">Chân váy</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <a href="#" class="menu-link">
+                                <span>Khuyến mãi</span>
+                            </a>
+                        </li>
+                        
+                        <li class="menu-item menu-item-has-children">
+                            <a href="#" class="menu-link">
+                                <span>Tin tức</span>
+                                <i class="dropdown-icon fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="menu-item"><a href="#" class="menu-link">Xu hướng thời trang</a></li>
+                                <li class="menu-item"><a href="#" class="menu-link">Bí quyết phối đồ</a></li>
+                                <li class="menu-item"><a href="#" class="menu-link">Sự kiện</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="header__right">
+                    <div class="header-actions">
+                        <div class="action-item search-box">
+                            <button class="search-toggle">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <div class="search-dropdown">
+                                <form class="search-form">
+                                    <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                                    <button type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div class="action-item account-dropdown">
+                            <button class="account-toggle">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <div class="account-menu">
+                                <a href="#" class="account-menu-item">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>Tài khoản của tôi</span>
+                                </a>
+                                <a href="#" class="account-menu-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Yêu thích</span>
+                                </a>
+                                <a href="#" class="account-menu-item">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Đơn hàng</span>
+                                </a>
+                                <div class="account-menu-divider"></div>
+                                <a href="#" class="account-menu-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="action-item cart-dropdown">
+                            <button class="cart-toggle">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span class="cart-count">2</span>
+                            </button>
+                            <div class="cart-menu">
+                                <div class="cart-menu-header">
+                                    <h4>Giỏ hàng của bạn (2)</h4>
+                                </div>
+                                <div class="cart-menu-items">
+                                    <div class="cart-item">
+                                        <img src="https://via.placeholder.com/80" alt="Product">
+                                        <div class="cart-item-info">
+                                            <h5>Áo sơ mi nam cao cấp</h5>
+                                            <div class="cart-item-meta">
+                                                <span>Size: M</span>
+                                                <span>Qty: 1</span>
+                                            </div>
+                                            <div class="cart-item-price">450.000đ</div>
+                                        </div>
+                                        <button class="cart-item-remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <!-- More cart items -->
+                                </div>
+                                <div class="cart-menu-footer">
+                                    <div class="cart-total">
+                                        <span>Tổng cộng:</span>
+                                        <span>1.350.000đ</span>
+                                    </div>
+                                    <div class="cart-actions">
+                                        <a href="#" class="btn btn-outline">Xem giỏ hàng</a>
+                                        <a href="#" class="btn btn-primary">Thanh toán</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with 3D Parallax -->
+    <section class="hero">
+        <div class="hero__bg" id="hero-bg"></div>
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title" data-splitting>
+                    <span class="line">Bộ sưu tập</span>
+                    <span class="line">Thu Đông 2023</span>
+                </h1>
+                <p class="hero__text">Khám phá những thiết kế độc quyền từ các nhà thiết kế hàng đầu thế giới</p>
+                <a href="#" class="btn btn--primary" data-magnetic>
+                    <span>Khám phá ngay</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero__scroll">
+            <span>Cuộn xuống</span>
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <!-- Featured Categories with Hover Effects -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Danh mục nổi bật</h2>
+                <a href="#" class="view-all">Xem tất cả</a>
+            </div>
+            
+            <div class="categories__grid">
+                <div class="category-card">
+                    <div class="category-card__inner">
+                        <div class="category-card__front">
+                            <div class="category-card__image">
+                                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Áo sơ mi nam">
+                            </div>
+                            <h3 class="category-card__title">Áo sơ mi nam</h3>
+                        </div>
+                        <div class="category-card__back">
+                            <h3 class="category-card__title">Áo sơ mi nam</h3>
+                            <p class="category-card__desc">Bộ sưu tập mới nhất từ các thương hiệu cao cấp</p>
+                            <a href="#" class="btn btn--outline">Xem sản phẩm</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- More category cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Product Showcase -->
+    <section class="product-showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sản phẩm đặc biệt</h2>
+            </div>
+            
+            <div class="product-showcase__container">
+                <div class="product-showcase__viewer" id="product-viewer">
+                    <!-- 3D product will be rendered here -->
+                </div>
+                <div class="product-showcase__info">
+                    <h3 class="product-showcase__title">Áo khoác da cao cấp</h3>
+                    <div class="product-showcase__price">8.999.000đ</div>
+                    <p class="product-showcase__desc">Áo khoác da thật 100% với thiết kế sang trọng, phù hợp với mọi dịp</p>
+                    <div class="product-showcase__colors">
+                        <span class="color-option active" style="background-color: #1a1a1a;"></span>
+                        <span class="color-option" style="background-color: #654321;"></span>
+                        <span class="color-option" style="background-color: #333333;"></span>
+                    </div>
+                    <button class="btn btn--primary" data-magnetic>
+                        <span>Thêm vào giỏ hàng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Product Grid -->
+    <section class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sản phẩm bán chạy</h2>
+                <div class="product-tabs">
+                    <button class="tab-btn active">Tất cả</button>
+                    <button class="tab-btn">Mới về</button>
+                    <button class="tab-btn">Giảm giá</button>
+                </div>
+            </div>
+            
+            <div class="products__grid">
+                <div class="product-card">
+                    <div class="product-card__badge">-30%</div>
+                    <div class="product-card__image">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Đầm dự tiệc">
+                        <div class="product-card__actions">
+                            <button class="product-card__action" data-tooltip="Yêu thích">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="product-card__action" data-tooltip="Xem nhanh">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card__info">
+                        <h3 class="product-card__title">Đầm dự tiệc cao cấp</h3>
+                        <div class="product-card__price">
+                            <span class="current-price">4.999.000đ</span>
+                            <span class="old-price">6.999.000đ</span>
+                        </div>
+                        <button class="product-card__add" data-magnetic>
+                            <span>Thêm vào giỏ</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- More product cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Khách hàng nói gì</h2>
+            </div>
+            
+            <div class="testimonials__slider">
+                <div class="testimonials__track">
+                    <div class="testimonial">
+                        <div class="testimonial__avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Nguyễn Thị Mai">
+                        </div>
+                        <div class="testimonial__content">
+                            <div class="testimonial__rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial__text">"Tôi hoàn toàn bị chinh phục bởi chất lượng sản phẩm và dịch vụ của Luxury Edition. Đóng gói cẩn thận, giao hàng siêu nhanh!"</p>
+                            <h4 class="testimonial__author">Nguyễn Thị Mai</h4>
+                            <span class="testimonial__role">Khách hàng thân thiết</span>
+                        </div>
+                    </div>
+                    <!-- More testimonials -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter with Animated Gradient -->
+    <section class="newsletter">
+        <div class="newsletter__bg">
+            <div class="gradient-circle circle-1"></div>
+            <div class="gradient-circle circle-2"></div>
+            <div class="gradient-circle circle-3"></div>
+        </div>
+        <div class="container">
+            <div class="newsletter__content">
+                <h2 class="newsletter__title">Đăng ký nhận bản tin</h2>
+                <p class="newsletter__text">Nhận thông tin khuyến mãi và ưu đãi đặc biệt dành riêng cho bạn</p>
+                <form class="newsletter__form">
+                    <div class="form-group">
+                        <input type="email" placeholder="Nhập email của bạn" required>
+                        <button type="submit" class="btn btn--primary" data-magnetic>
+                            <span>Đăng ký</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <a href="index.html">
+                            <span class="luxe">LUXURY</span>
+                            <span class="edition">EDITION</span>
+                        </a>
+                    </div>
+                    <p class="footer__about">Luxury Edition mang đến những sản phẩm thời trang cao cấp với chất lượng đỉnh cao và dịch vụ hoàn hảo.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <!-- More footer columns -->
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="container">
+                <p class="copyright">© 2023 Luxury Edition. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 3D Product Quick View -->
+    <div class="quick-view" id="quick-view">
+        <div class="quick-view__overlay"></div>
+        <div class="quick-view__container">
+            <button class="quick-view__close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="quick-view__content">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

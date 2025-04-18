@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeMode - Trải nghiệm mua sắm cao cấp</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff4d4d;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #1a1a2e;
+        }
+
+        .dark-mode {
+            --primary-color: #8a2be2;
+            --secondary-color: #4169e1;
+            --accent-color: #ff6b6b;
+            --dark-color: #121212;
+            --light-color: #f0f0f0;
+            --text-color: #f0f0f0;
+            --bg-color: #1e1e1e;
+            --card-bg: #2d2d2d;
+            --footer-bg: #121212;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.5s ease;
+        }
+
+        /* Header Styling */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .main-header {
+            background: rgba(26, 26, 46, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .main-header.scrolled {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+            color: #1a1a2e;
+        }
+
+        .dark-mode .logo {
+            color: white;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            color: #ff4d4d;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(15deg);
+        }
+
+        /* Main Nav */
+        .main-nav .nav-item {
+            position: relative;
+            margin: 0 0.5rem;
+        }
+
+        .main-nav .nav-link {
+            color: #1a1a2e;
+            font-weight: 600;
+            padding: 1.5rem 0.75rem;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .main-nav .nav-link {
+            color: white;
+        }
+
+        .main-nav .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 1.25rem;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav .nav-link:hover::before,
+        .main-nav .nav-link.active::before {
+            width: 100%;
+        }
+
+        .main-nav .nav-link:hover {
+            color: #6a11cb;
+        }
+
+        .dark-mode .main-nav .nav-link:hover {
+            color: #ff6b6b;
+        }
+
+        /* Mega Menu */
+        .mega-menu {
+            position: absolute;
+            left: 0;
+            background: white;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 0 0 10px 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dark-mode .mega-menu {
+            background: #2d2d2d;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item.dropdown:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mega-menu-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .mega-menu-col {
+            flex: 1;
+            width: 140px;
+        }
+
+        .mega-menu-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: #1a1a2e;
+        }
+
+        .dark-mode .mega-menu-title {
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mega-menu-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mega-menu-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .mega-menu-links a {
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .dark-mode .mega-menu-links a {
+            color: #ccc;
+        }
+
+        .mega-menu-links a:hover {
+            color: #6a11cb;
+            transform: translateX(5px);
+            transition: transform 0.2s ease;
+        }
+
+        .dark-mode .mega-menu-links a:hover {
+            color: #ff6b6b;
+        }
+
+        .mega-menu-img {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .mega-menu-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .mega-menu-img:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin-right: 1rem;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: #1a1a2e;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .search-btn {
+            color: white;
+        }
+
+        .search-btn:hover {
+            color: #6a11cb;
+            transform: scale(1.1);
+        }
+
+        .dark-mode .search-btn:hover {
+            color: #ff6b6b;
+        }
+
+        .search-input {
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            width: 0;
+            padding: 0;
+            border: none;
+            border-radius: 50px;
+            background: #f5f5f5;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .dark-mode .search-input {
+            background: #333;
+            color: white;
+        }
+
+        .search-input.active {
+            width: 250px;
+            padding: 0.5rem 1rem;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Shopping Cart */
+        .cart-dropdown {
+            position: relative;
+        }
+
+        .cart-preview {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dark-mode .cart-preview {
+            background: #2d2d2d;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-dropdown:hover .cart-preview {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .cart-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1a1a2e;
+        }
+
+        .dark-mode .cart-item-title {
+            color: white;
+        }
+
+        .cart-item-price {
+            color: #6a11cb;
+            font-weight: 600;
+        }
+
+        .dark-mode .cart-item-price {
+            color: #ff6b6b;
+        }
+
+        .cart-remove {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-remove:hover {
+            color: #ff4d4d;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .dark-mode .cart-total {
+            color: white;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .cart-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .view-cart {
+            background: #f5f5f5;
+            color: #1a1a2e;
+            border: 1px solid #eee;
+        }
+
+        .dark-mode .view-cart {
+            background: #333;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        .view-cart:hover {
+            background: #eee;
+        }
+
+        .dark-mode .view-cart:hover {
+            background: #444;
+        }
+
+        .checkout {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+        }
+
+        .checkout:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* User Dropdown */
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dark-mode .user-menu {
+            background: #2d2d2d;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-dropdown:hover .user-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-menu-item {
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(106, 17, 203, 0.1);
+        }
+
+        .dark-mode .user-menu-item:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .user-menu-link {
+            color: #1a1a2e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .dark-mode .user-menu-link {
+            color: white;
+        }
+
+        .user-menu-link:hover {
+            color: #6a11cb;
+        }
+
+        .dark-mode .user-menu-link:hover {
+            color: #ff6b6b;
+        }
+
+        .user-menu-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            color: #1a1a2e;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .mobile-menu-btn {
+            color: white;
+        }
+
+        .mobile-menu-btn:hover {
+            color: #6a11cb;
+            transform: scale(1.1);
+        }
+
+        .dark-mode .mobile-menu-btn:hover {
+            color: #ff6b6b;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .toggle-ball {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .dark-mode .toggle-ball {
+            transform: translateX(26px);
+        }
+
+        .mode-icon {
+            position: absolute;
+            font-size: 12px;
+            color: white;
+        }
+
+        .sun {
+            left: 6px;
+            top: 6px;
+        }
+
+        .moon {
+            right: 6px;
+            top: 6px;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: var(--bg-color);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+            z-index: 1040;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            overflow-y: auto;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem;
+        }
+
+        .sidebar-nav .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav .nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .sidebar-nav .nav-link:hover {
+            background-color: rgba(106, 17, 203, 0.15);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .sidebar-nav .nav-link i {
+            margin-right: 12px;
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 1rem 0;
+            border: none;
+        }
+
+        .dark-mode .sidebar-divider {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1035;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            height: 90vh;
+            min-height: 600px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .btn-hero {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            animation: fadeIn 1s ease 0.6s both;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-hero:hover {
+            background-color: white;
+            color: var(--accent-color);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-hero:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+            }
+        }
+
+        /* Main Content */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 70px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .section-title:hover::after {
+            width: 100%;
+        }
+
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img-container {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .product-old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+
+        .btn-add-to-cart {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.75rem 1.75rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-add-to-cart:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+        }
+
+        .btn-add-to-cart i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-add-to-cart:hover i {
+            transform: translateX(3px);
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        .rating-count {
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .dark-mode .rating-count {
+            color: #bbb;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .features-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .feature-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h4 {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .feature-card h4::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 6rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .newsletter-input {
+            border: none;
+            border-radius: 50px;
+            padding: 1.25rem 1.75rem;
+            width: 100%;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-newsletter {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1.25rem 2.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-newsletter:hover {
+            background-color: white;
+            color: var(--accent-color);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-newsletter::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-newsletter:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 5rem 0 0;
+            position: relative;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .footer-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 50px;
+        }
+
+        .footer-wave .shape-fill {
+            fill: var(--bg-color);
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 12px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            font-size: 1.1rem;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .footer-title:hover::after {
+            width: 80px;
+        }
+        
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(8px);
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        
+        .footer-contact li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+        
+        .footer-contact i {
+            margin-right: 15px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        .footer-bottom {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            border: none;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .back-to-top i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-top:hover i {
+            transform: translateY(-3px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: 80vh;
+                background-attachment: scroll;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block !important;
+            }
+
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                bottom: 30px;
+                right: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-banner {
+                height: 70vh;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .sidebar {
+                width: 280px;
+            }
+
+            .section-title::after {
+                bottom: -10px;
+                height: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <div class="d-flex align-items-center">
+                    <button class="btn mobile-menu-btn d-lg-none me-3" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a href="#" class="logo">
+                        <span class="logo-icon"><i class="fas fa-crown"></i></span>
+                        <span>LuxeMode</span>
+                    </a>
+                </div>
+                
+                <nav class="main-nav d-none d-lg-flex">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">Trang chủ</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link">Thời trang nam</a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu-content">
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Áo nam</h4>
+                                            <ul class="mega-menu-links">
+                                                <li><a href="#">Áo sơ mi</a></li>
+                                                <li><a href="#">Áo thun</a></li>
+                                                <li><a href="#">Áo polo</a></li>
+                                                <li><a href="#">Áo khoác</a></li>
+                                                <li><a href="#">Áo vest</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Quần nam</h4>
+                                            <ul class="mega-menu-links">
+                                                <li><a href="#">Quần jeans</a></li>
+                                                <li><a href="#">Quần âu</a></li>
+                                                <li><a href="#">Quần shorts</a></li>
+                                                <li><a href="#">Quần jogger</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Phụ kiện</h4>
+                                            <ul class="mega-menu-links">
+                                                <li><a href="#">Giày dép</a></li>
+                                                <li><a href="#">Đồng hồ</a></li>
+                                                <li><a href="#">Thắt lưng</a></li>
+                                                <li><a href="#">Túi xách</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col mega-menu-img">
+                                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Men's Fashion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link">Thời trang nữ</a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu-content">
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Áo nữ</h4>
+                                            <ul class="mega-menu-links">
+                                                <li><a href="#">Áo sơ mi</a></li>
+                                                <li><a href="#">Áo thun</a></li>
+                                                <li><a href="#">Áo kiểu</a></li>
+                                                <li><a href="#">Áo khoác</a></li>
+                                                <li><a href="#">Đầm/Váy</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Quần nữ</h4>
+                                            <ul class="mega-menu-links">
+                                                <li><a href="#">Quần jeans</a></li>
+                                                <li><a href="#">Quần âu</a></li>
+                                                <li><a href="#">Quần shorts</a></li>
+                                                <li><a href="#">Quần legging</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col">
+                                            <h4 class="mega-menu-title">Phụ kiện</h4>
+                                            <ul class="mega-menu-links">
+                                                <li><a href="#">Giày dép</a></li>
+                                                <li><a href="#">Túi xách</a></li>
+                                                <li><a href="#">Trang sức</a></li>
+                                                <li><a href="#">Mũ nón</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu-col mega-menu-img">
+                                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Women's Fashion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Bộ sưu tập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Khuyến mãi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Về chúng tôi</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="d-flex align-items-center">
+                    <div class="search-container">
+                        <button class="search-btn" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <input type="text" class="search-input" placeholder="Tìm kiếm...">
+                    </div>
+                    
+                    <div class="user-dropdown ms-3">
+                        <button class="btn user-btn">
+                            <i class="far fa-user"></i>
+                        </button>
+                        <div class="user-menu">
+                            <div class="user-menu-item">
+                                <a href="#" class="user-menu-link">
+                                    <i class="fas fa-user-circle user-menu-icon"></i>
+                                    <span>Tài khoản</span>
+                                </a>
+                            </div>
+                            <div class="user-menu-item">
+                                <a href="#" class="user-menu-link">
+                                    <i class="fas fa-heart user-menu-icon"></i>
+                                    <span>Yêu thích</span>
+                                </a>
+                            </div>
+                            <div class="user-menu-item">
+                                <a href="#" class="user-menu-link">
+                                    <i class="fas fa-history user-menu-icon"></i>
+                                    <span>Đơn hàng</span>
+                                </a>
+                            </div>
+                            <div class="user-menu-item">
+                                <a href="#" class="user-menu-link">
+                                    <i class="fas fa-cog user-menu-icon"></i>
+                                    <span>Cài đặt</span>
+                                </a>
+                            </div>
+                            <div class="user-menu-item">
+                                <a href="#" class="user-menu-link">
+                                    <i class="fas fa-sign-out-alt user-menu-icon"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-dropdown ms-3">
+                        <button class="btn cart-btn">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-count">3</span>
+                        </button>
+                        <div class="cart-preview">
+                            <div class="cart-item">
+                                <div class="cart-item-img">
+                                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Product">
+                                </div>
+                                <div class="cart-item-details">
+                                    <h5 class="cart-item-title">Giày Thể Thao</h5>
+                                    <p class="cart-item-price">1.299.000đ</p>
+                                </div>
+                                <button class="cart-remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="cart-item">
+                                <div class="cart-item-img">
+                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=699&q=80" alt="Product">
+                                </div>
+                                <div class="cart-item-details">
+                                    <h5 class="cart-item-title">Đồng Hồ</h5>
+                                    <p class="cart-item-price">2.499.000đ</p>
+                                </div>
+                                <button class="cart-remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="cart-total">
+                                <span>Tổng tiền:</span>
+                                <span>3.798.000đ</span>
+                            </div>
+                            <div class="cart-actions">
+                                <a href="#" class="cart-btn view-cart">Xem giỏ hàng</a>
+                                <a href="#" class="cart-btn checkout">Thanh toán</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h5 class="mb-0">LuxeMode Menu</h5>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-home"></i> Trang chủ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-tshirt"></i> Sản phẩm
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-layer-group"></i> Bộ sưu tập
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-percent"></i> Khuyến mãi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-info-circle"></i> Về chúng tôi
+                    </a>
+                </li>
+                <hr class="sidebar-divider">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i> Tài khoản
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-heart"></i> Yêu thích
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-history"></i> Lịch sử mua hàng
+                    </a>
+                </li>
+                <hr class="sidebar-divider">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i> Cài đặt
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-question-circle"></i> Trợ giúp
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="floating-elements">
+            <!-- Floating elements will be added via JS -->
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Phong Cách Đẳng Cấp</h1>
+            <p class="hero-subtitle">Khám phá bộ sưu tập mới nhất với ưu đãi lên đến 50%</p>
+            <button class="btn btn-hero">Khám phá ngay</button>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Featured Products -->
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+                    <p class="text-muted">Những sản phẩm được yêu thích nhất hiện nay</p>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Product 1 -->
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                     alt="Product" class="img-fluid product-img">
+                                <span class="product-badge">Giảm 30%</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Giày Thể Thao Premium</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="product-price">1.299.000đ</span>
+                                        <span class="product-old-price">1.899.000đ</span>
+                                    </div>
+                                    <div>
+                                        <span class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </span>
+                                        <span class="rating-count">(24)</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-add-to-cart w-100">
+                                    <i class="fas fa-cart-plus me-2"></i> Thêm vào giỏ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1399&q=80" 
+                                     alt="Product" class="img-fluid product-img">
+                                <span class="product-badge">Mới</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Đồng Hồ Thời Trang</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="product-price">2.499.000đ</span>
+                                    </div>
+                                    <div>
+                                        <span class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                        <span class="rating-count">(18)</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-add-to-cart w-100">
+                                    <i class="fas fa-cart-plus me-2"></i> Thêm vào giỏ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1491553895911-005bd707402b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                     alt="Product" class="img-fluid product-img">
+                                <span class="product-badge">Bán chạy</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Túi Xách Da Cao Cấp</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="product-price">3.899.000đ</span>
+                                    </div>
+                                    <div>
+                                        <span class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                        <span class="rating-count">(36)</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-add-to-cart w-100">
+                                    <i class="fas fa-cart-plus me-2"></i> Thêm vào giỏ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" 
+                                     alt="Product" class="img-fluid product-img">
+                                <span class="product-badge">Giảm 15%</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Kính Mát Thời Trang</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <span class="product-price">899.000đ</span>
+                                        <span class="product-old-price">1.059.000đ</span>
+                                    </div>
+                                    <div>
+                                        <span class="rating-stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                        <span class="rating-count">(12)</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-add-to-cart w-100">
+                                    <i class="fas fa-cart-plus me-2"></i> Thêm vào giỏ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <button class="btn btn-outline-primary px-4 py-2">
+                        Xem tất cả sản phẩm <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Dịch Vụ Cao Cấp</h2>
+                    <p class="text-muted">Những lý do bạn nên chọn LuxeMode</p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h4>Giao Hàng Siêu Tốc</h4>
+                            <p>Giao hàng toàn quốc trong 1-3 ngày làm việc với đơn hàng từ 500k</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-undo-alt"></i>
+                            </div>
+                            <h4>Đổi Trả Dễ Dàng</h4>
+                            <p>Đổi trả trong 7 ngày nếu sản phẩm lỗi hoặc không đúng mô tả</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h4>Thanh Toán An Toàn</h4>
+                            <p>Hỗ trợ nhiều hình thức thanh toán an toàn và tiện lợi</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h4>Hạng Thành Viên</h4>
+                            <p>Tích điểm và nhận ưu đãi đặc biệt dành cho khách hàng thân thiết</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-pattern"></div>
+            <div class="container text-center newsletter-content">
+                <h2 class="section-title mb-4">Đăng Ký Nhận Ưu Đãi</h2>
+                <p class="mb-5">Nhận thông tin về sản phẩm mới và ưu đãi đặc biệt dành riêng cho bạn</p>
+                
+                <form class="newsletter-form">
+                    <div class="input-group mb-4">
+                        <input type="email" class="form-control newsletter-input" placeholder="Nhập email của bạn">
+                    </div>
+                    <button type="submit" class="btn btn-newsletter">Đăng ký ngay</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <div class="container footer-content">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-about">
+                        <a href="#" class="footer-logo">LuxeMode</a>
+                        <p>LuxeMode là cửa hàng thời trang cao cấp hàng đầu Việt Nam, mang đến cho khách hàng những sản phẩm chất lượng với phong cách đẳng cấp.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-2">
+                    <h5 class="footer-title">Mua sắm</h5>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="#">Sản phẩm mới</a></li>
+                        <li><a href="#">Bán chạy nhất</a></li>
+                        <li><a href="#">Khuyến mãi</a></li>
+                        <li><a href="#">Bộ sưu tập</a></li>
+                        <li><a href="#">Xu hướng</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6 col-lg-2">
+                    <h5 class="footer-title">Hỗ trợ</h5>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="#">Trung tâm trợ giúp</a></li>
+                        <li><a href="#">Theo dõi đơn hàng</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Điều khoản sử dụng</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <h5 class="footer-title">Liên hệ</h5>
+                    <ul class="footer-contact list-unstyled">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Tòa nhà Luxe, 123 Đường ABC, Quận 1, TP.HCM</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+84 123 456 789</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@luxemode.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Thứ 2 - Thứ 7: 8:00 - 22:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <p class="mb-0">&copy; 2023 LuxeMode. All rights reserved.</p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <img src="https://via.placeholder.com/300x30?text=Payment+Methods" alt="Payment Methods" class="img-fluid" style="max-height: 30px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Mobile menu toggle
+            $('#mobileMenuBtn, #sidebarClose, #overlay').on('click', function() {
+                $('#sidebar').toggleClass('open');
+                $('#overlay').toggleClass('active');
+                $('body').toggleClass('overflow-hidden');
+            });
+            
+            // Header scroll effect
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 100) {
+                    $('.main-header').addClass('scrolled');
+                } else {
+                    $('.main-header').removeClass('scrolled');
+                }
+                
+                // Back to top button
+                if ($(this).scrollTop() > 300) {
+                    $('#backToTop').addClass('active');
+                } else {
+                    $('#backToTop').removeClass('active');
+                }
+            });
+            
+            // Back to top
+            $('#backToTop').click(function(e) {
+                e.preventDefault();
+                $('html, body').animate({scrollTop: 0}, '500');
+            });
+            
+            // Create floating elements
+            function createFloatingElements() {
+                const container = $('.floating-elements');
+                for (let i = 0; i < 20; i++) {
+                    const size = Math.random() * 60 + 20;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100 + 100;
+                    const delay = Math.random() * 10;
+                    const duration = Math.random() * 25 + 15;
+                    const opacity = Math.random() * 0.5 + 0.2;
+                    
+                    const element = $('<div>').addClass('floating-element').css({
+                        'width': size + 'px',
+                        'height': size + 'px',
+                        'top': posY + '%',
+                        'left': posX + '%',
+                        'animation-delay': delay + 's',
+                        'animation-duration': duration + 's',
+                        'opacity': opacity
+                    });
+                    
+                    container.append(element);
+                }
+            }
+            
+            createFloatingElements();
+            
+            // Dark mode toggle
+            $('#darkModeToggle').click(function() {
+                $('body').toggleClass('dark-mode');
+                
+                // Save preference to localStorage
+                if ($('body').hasClass('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                $('body').addClass('dark-mode');
+                $('.toggle-ball').css('transform', 'translateX(26px)');
+            }
+            
+            // Ripple effect for buttons
+            $('.btn-hero, .btn-newsletter').on('click', function(e) {
+                var x = e.pageX - $(this).offset().left;
+                var y = e.pageY - $(this).offset().top;
+                
+                var $ripple = $('<span class="ripple"></span>').css({
+                    'position': 'absolute',
+                    'background': 'rgba(255, 255, 255, 0.3)',
+                    'border-radius': '50%',
+                    'pointer-events': 'none',
+                    'transform': 'scale(0)',
+                    'animation': 'ripple 0.6s linear',
+                    'top': y + 'px',
+                    'left': x + 'px'
+                });
+                
+                $(this).append($ripple);
+                
+                setTimeout(function() {
+                    $ripple.remove();
+                }, 600);
+            });
+            
+            // Product card hover effect
+            $('.product-card').hover(
+                function() {
+                    $(this).find('.btn-add-to-cart').css('background', 'linear-gradient(to right, var(--accent-color), #ff8e8e)');
+                },
+                function() {
+                    $(this).find('.btn-add-to-cart').css('background', 'linear-gradient(to right, var(--primary-color), var(--secondary-color))');
+                }
+            );
+        });
+
+        $(document).ready(function() {
+            // Header scroll effect
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 100) {
+                    $('.main-header').addClass('scrolled');
+                } else {
+                    $('.main-header').removeClass('scrolled');
+                }
+            });
+            
+            // Search bar toggle
+            $('#searchBtn').click(function() {
+                $('.search-input').toggleClass('active');
+                if ($('.search-input').hasClass('active')) {
+                    $('.search-input').focus();
+                }
+            });
+            
+            // Close search when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.search-container').length) {
+                    $('.search-input').removeClass('active');
+                }
+            });
+            
+            // Mobile menu toggle
+            $('#mobileMenuBtn').click(function() {
+                // You can add mobile menu functionality here
+                console.log('Mobile menu clicked');
+            });
+        });
+    </script>
+</body>
+</html>
