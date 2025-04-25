@@ -13,7 +13,7 @@
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body class="dark-mode">
     <!-- Preloader -->
@@ -48,10 +48,6 @@
                 </button>
             </div>
             <div class="sidebar-profile">
-                <div class="avatar">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Admin">
-                    <span class="status online"></span>
-                </div>
                 <div class="profile-info">
                     <h6>Sarah Johnson</h6>
                     <small>Quản trị viên cấp cao</small>
@@ -143,73 +139,22 @@
                         </div>
                         <div class="col-md-6">
                             <div class="header-right">
-                                <div class="dropdown notification-dropdown">
-                                    <button class="btn" type="button" data-bs-toggle="dropdown">
-                                        <i class="fas fa-bell"></i>
-                                        <span class="badge bg-danger">5</span>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <div class="dropdown-header">
-                                            <h6>Thông báo</h6>
-                                            <a href="#">Đánh dấu đã đọc</a>
-                                        </div>
-                                        <div class="dropdown-body">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="icon bg-primary">
-                                                    <i class="fas fa-shopping-cart"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>Đơn hàng mới #1234</p>
-                                                    <small>2 phút trước</small>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="dropdown-item">
-                                                <div class="icon bg-success">
-                                                    <i class="fas fa-user-plus"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>Khách hàng mới đăng ký</p>
-                                                    <small>10 phút trước</small>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="dropdown-item">
-                                                <div class="icon bg-warning">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>Sản phẩm sắp hết hàng</p>
-                                                    <small>30 phút trước</small>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-footer">
-                                            <a href="#">Xem tất cả</a>
-                                        </div>
-                                    </div>
+                                <div class="auth-buttons not-logged-in">
+                                    <a href="login.html" class="btn btn-outline-light me-2">Đăng nhập</a>
+                                    <a href="register.html" class="btn btn-primary">Đăng ký</a>
                                 </div>
-                                <div class="dropdown profile-dropdown">
-                                    <button class="btn" type="button" data-bs-toggle="dropdown">
-                                        <div class="avatar">
-                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                                
+                                <div class="logged-in-user d-none">
+                                    <div class="dropdown profile-dropdown">
+                                        <button class="btn" type="button" data-bs-toggle="dropdown">
+                                            <span></span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <button type="button" class="dropdown-item btn-logout">
+                                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                            </button>
                                         </div>
-                                        <span>Sarah J.</span>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a href="#" class="dropdown-item">
-                                            <i class="fas fa-user"></i> Hồ sơ
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <i class="fas fa-cog"></i> Cài đặt
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <i class="fas fa-envelope"></i> Tin nhắn
-                                            <span class="badge bg-primary">3</span>
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item">
-                                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -557,6 +502,6 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom JS -->
-    <script src="main.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
