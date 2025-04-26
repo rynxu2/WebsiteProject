@@ -1,4 +1,4 @@
-const API_URL = 'https://67ff87cd58f18d7209f19525.mockapi.io/api/v1';
+const API_URL = 'https://66434cf76c6a656587067972.mockapi.io/api/v1';
 
 // Đăng nhập
 async function login(email, password) {
@@ -22,22 +22,31 @@ async function login(email, password) {
 }
 
 // Đăng ký
-async function register(name, email, password) {
+async function register(name, email, password, avatar) {
     try {
-        // Kiểm tra email tồn tại
         const checkResponse = await fetch(`${API_URL}/users?email=${email}`);
         
-        const existingUsers = await checkResponse.json();
-        if (existingUsers.length > 0) {
-            throw new Error('Email đã được sử dụng');
-        }
+        if (!checkResponse.ok) {
+            if (checkResponse.status === 404) {
+              console.log('Email chưa được sử dụng');
+            } else {
+              throw new Error(`Lỗi server: ${checkResponse.status}`);
+            }
+          } else {
+            const existingUsers = await checkResponse.json();
+            console.log('Existing users:', existingUsers);
         
-        // Tạo user mới
+            if (existingUsers.length > 0) {
+              throw new Error('Email đã được sử dụng');
+            }
+          }
+        
         const newUser = {
-            name,
-            email,
-            password,
-            createdAt: new Date().toISOString()
+            'name': name,
+            'avatar': avatar,
+            'email': email,
+            'password': password,
+            'createdAt': (createdAt = new Date().toISOString())
         };
         
         const createResponse = await fetch(`${API_URL}/users`, {
@@ -110,6 +119,7 @@ $(document).ready(function() {
             const email = $('#email').val();
             const password = $('#password').val();
             const confirmPassword = $('#confirmPassword').val();
+            const avatar = $('#avatar').val();
             
             if (password !== confirmPassword) {
                 Swal.fire({
@@ -124,7 +134,7 @@ $(document).ready(function() {
                 const btn = $('#registerBtn');
                 btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...');
                 
-                await register(name, email, password);
+                await register(name, email, password, avatar);
                 
                 Swal.fire({
                     icon: 'success',
