@@ -1,111 +1,188 @@
-// Preloader
-window.addEventListener('load', function() {
-    const preloader = document.querySelector('.preloader');
-    preloader.classList.add('fade-out');
-    
-    setTimeout(function() {
-        preloader.style.display = 'none';
-    }, 500);
-});
+$(document).ready(function() {
+    // Preloader
+    $(window).on('load', function() {
+        $('.preloader').fadeOut('slow');
+    });
 
-// Sidebar Toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const sidebarToggle = document.body.querySelector('#sidebarToggle');
-    const sidebar = document.getElementById('layoutSidenav_nav');
-    
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (window.innerWidth < 992) {
-                sidebar.classList.toggle('show');
+    // Toggle Sidebar
+    $('.sidebar-toggle').on('click', function() {
+        $('body').toggleClass('sidebar-collapsed');
+        
+        // Store state in localStorage
+        localStorage.setItem('sidebarCollapsed', $('body').hasClass('sidebar-collapsed'));
+    });
+
+    // Mobile Sidebar Toggle
+    $('.mobile-sidebar-toggle').on('click', function() {
+        $('body').toggleClass('sidebar-show');
+    });
+
+    // Check localStorage for sidebar state
+    if (localStorage.getItem('sidebarCollapsed') === 'true') {
+        $('body').addClass('sidebar-collapsed');
+    }
+
+    // Dropdown Menu Toggle
+    $('.has-dropdown > .nav-link').on('click', function(e) {
+        if ($(window).width() > 992) {
+            if ($('body').hasClass('sidebar-collapsed')) {
+                e.preventDefault();
+                $(this).parent().toggleClass('show');
             } else {
-                document.body.classList.toggle('sb-sidenav-toggled');
-                localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                e.preventDefault();
+                $(this).parent().toggleClass('show');
+                $(this).find('.dropdown-icon').toggleClass('fa-chevron-right fa-chevron-down');
             }
-        });
-    }
-    
-    // Restore sidebar state from localStorage
-    if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        document.body.classList.add('sb-sidenav-toggled');
-    }
-    
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth < 992) {
-            if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('show')) {
-                sidebar.classList.remove('show');
-            }
+        } else {
+            e.preventDefault();
+            $(this).parent().toggleClass('show');
+            $(this).find('.dropdown-icon').toggleClass('fa-chevron-right fa-chevron-down');
         }
     });
-    
-    // Active menu item highlight
-    const currentUrl = window.location.href;
-    const navLinks = document.querySelectorAll('.sb-sidenav-menu .nav-link');
-    
-    navLinks.forEach(link => {
-        if (link.href === currentUrl) {
-            link.classList.add('active');
-            
-            // Expand parent collapse if exists
-            const parentCollapse = link.closest('.collapse');
-            if (parentCollapse) {
-                parentCollapse.classList.add('show');
-                const parentLink = document.querySelector(`[data-bs-target="#${parentCollapse.id}"]`);
-                if (parentLink) {
-                    parentLink.classList.remove('collapsed');
+
+    // Initialize Tooltips
+    $('[data-bs-toggle="tooltip"]').tooltip();
+
+    // Back to Top Button
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 300) {
+            $('.btn-back-to-top').addClass('show');
+        } else {
+            $('.btn-back-to-top').removeClass('show');
+        }
+    });
+
+    $('.btn-back-to-top').click(function() {
+        $('html, body').animate({scrollTop: 0}, 'smooth');
+        return false;
+    });
+
+    // Close dropdown when clicking outside
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.has-dropdown').length) {
+            $('.has-dropdown').removeClass('show');
+            $('.dropdown-icon').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+        }
+    });
+
+    // Initialize Charts
+    initCharts();
+});
+
+// Chart Initialization
+function initCharts() {
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [{
+                label: 'Doanh thu',
+                data: [3500, 4200, 3800, 4500, 5200, 6100, 7300, 6800, 7900, 8200, 8500, 9000],
+                backgroundColor: 'rgba(115, 103, 240, 0.1)',
+                borderColor: 'rgba(115, 103, 240, 1)',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: 'rgba(115, 103, 240, 1)',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#fff',
+                    titleColor: '#333',
+                    bodyColor: '#666',
+                    borderColor: '#eee',
+                    borderWidth: 1,
+                    padding: 10,
+                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+                    callbacks: {
+                        label: function(context) {
+                            return '$' + context.parsed.y.toLocaleString();
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
                 }
             }
         }
     });
-    
-    // Initialize tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-    
-    // Back to top button
-    const backToTopButton = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.add('show');
-        } else {
-            backToTopButton.classList.remove('show');
+
+    // Category Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Điện tử', 'Thời trang', 'Gia dụng', 'Sách', 'Khác'],
+            datasets: [{
+                data: [35, 25, 20, 15, 5],
+                backgroundColor: [
+                    'rgba(115, 103, 240, 0.8)',
+                    'rgba(40, 199, 111, 0.8)',
+                    'rgba(255, 159, 67, 0.8)',
+                    'rgba(0, 207, 232, 0.8)',
+                    'rgba(234, 84, 85, 0.8)'
+                ],
+                borderColor: '#fff',
+                borderWidth: 2,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#fff',
+                    titleColor: '#333',
+                    bodyColor: '#666',
+                    borderColor: '#eee',
+                    borderWidth: 1,
+                    padding: 10,
+                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.raw + '%';
+                        }
+                    }
+                }
+            },
+            cutout: '70%'
         }
     });
-    
-    backToTopButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // Set current year in footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    
-    // Animate elements when scrolling
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.stats-card, .card');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight - 100) {
-                element.classList.add('animate__animated', 'animate__fadeInUp');
-            }
-        });
-    };
-    
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on page load
-});
-
-// Initialize GLightbox for product images
-document.addEventListener('DOMContentLoaded', function() {
-    const lightbox = GLightbox({
-        selector: '.glightbox'
-    });
-});
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống quản trị bán hàng | Dashboard</title>
+    <title>Hệ Thống Quản Trị Bán Hàng | Dashboard</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,658 +12,590 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    
-    <!-- Glightbox CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="sb-nav-fixed">
+<body class="admin-dashboard">
     <!-- Preloader -->
     <div class="preloader">
-        <div class="loader">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+        <div class="loader-content">
+            <div class="logo-loader">
+                <i class="fas fa-store-alt"></i>
+                <span>QUẢN TRỊ BÁN HÀNG</span>
+            </div>
+            <div class="loader-dots">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </div>
-    
-    <!-- Header -->
-    <nav class="sb-topnav navbar navbar-expand navbar-dark">
-        <!-- Navbar Brand -->
-        <a class="navbar-brand ps-3" href="index.html">
-            <img src="img/logo-white.png" alt="Logo" height="30" class="me-2">
-            <span class="brand-name">Shop<span class="text-primary">Admin</span></span>
-        </a>
-        
-        <!-- Sidebar Toggle -->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <!-- Navbar Search -->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group search-box">
-                <input class="form-control" type="text" placeholder="Tìm kiếm..." aria-label="Search">
-                <button class="btn" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-        
-        <!-- Navbar Right -->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown notification-dropdown">
-                <a class="nav-link dropdown-toggle" id="notificationDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end notification-menu" aria-labelledby="notificationDropdown">
-                    <li class="notification-header">
-                        <h6>Thông báo (3)</h6>
-                    </li>
-                    <li>
-                        <a class="dropdown-item notification-item" href="#">
-                            <div class="notification-icon bg-primary">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h6>Đơn hàng mới</h6>
-                                <p>Đơn hàng #ORD-2023-105 từ Nguyễn Văn A</p>
-                                <span class="notification-time">5 phút trước</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item notification-item" href="#">
-                            <div class="notification-icon bg-success">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h6>Đơn hàng đã giao</h6>
-                                <p>Đơn hàng #ORD-2023-098 đã giao thành công</p>
-                                <span class="notification-time">2 giờ trước</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item notification-item" href="#">
-                            <div class="notification-icon bg-warning">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="notification-content">
-                                <h6>Cảnh báo tồn kho</h6>
-                                <p>Sản phẩm "iPhone 13" sắp hết hàng</p>
-                                <span class="notification-time">Hôm nay, 10:15</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="notification-footer">
-                        <a href="#">Xem tất cả thông báo</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown user-dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="user-avatar">
-                        <img src="img/avatar.jpg" alt="User Avatar">
-                    </div>
-                    <span class="user-name d-none d-lg-inline">Admin</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end user-menu" aria-labelledby="navbarDropdown">
-                    <li class="user-header">
-                        <div class="user-avatar-lg">
-                            <img src="img/avatar.jpg" alt="User Avatar">
-                        </div>
-                        <div class="user-info">
-                            <h5>Nguyễn Văn Admin</h5>
-                            <small>Quản trị viên</small>
-                        </div>
-                    </li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Thông tin tài khoản</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Cài đặt</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-history me-2"></i>Nhật ký hoạt động</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-    
-    <div id="layoutSidenav">
+
+    <!-- Main Wrapper -->
+    <div class="wrapper">
         <!-- Sidebar -->
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Tổng quan</div>
-                        <a class="nav-link active" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Bảng điều khiển
-                        </a>
-                        
-                        <div class="sb-sidenav-menu-heading">Quản lý</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProducts" aria-expanded="false">
-                            <div class="sb-nav-link-icon"><i class="fas fa-box-open"></i></div>
-                            Sản phẩm
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseProducts" aria-labelledby="headingOne">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="products.html">Danh sách sản phẩm</a>
-                                <a class="nav-link" href="add-product.html">Thêm sản phẩm</a>
-                                <a class="nav-link" href="categories.html">Danh mục</a>
-                                <a class="nav-link" href="brands.html">Thương hiệu</a>
-                                <a class="nav-link" href="attributes.html">Thuộc tính</a>
-                            </nav>
-                        </div>
-                        
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false">
-                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                            Đơn hàng
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseOrders" aria-labelledby="headingTwo">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="orders.html">Tất cả đơn hàng</a>
-                                <a class="nav-link" href="pending-orders.html">Đơn chờ xử lý</a>
-                                <a class="nav-link" href="processing-orders.html">Đang xử lý</a>
-                                <a class="nav-link" href="shipped-orders.html">Đang vận chuyển</a>
-                                <a class="nav-link" href="completed-orders.html">Đã hoàn thành</a>
-                                <a class="nav-link" href="cancelled-orders.html">Đã hủy</a>
-                            </nav>
-                        </div>
-                        
-                        <a class="nav-link" href="customers.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Khách hàng
-                        </a>
-                        
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReports" aria-expanded="false">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
-                            Báo cáo
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseReports" aria-labelledby="headingThree">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="sales-report.html">Báo cáo bán hàng</a>
-                                <a class="nav-link" href="inventory-report.html">Báo cáo tồn kho</a>
-                                <a class="nav-link" href="customer-report.html">Báo cáo khách hàng</a>
-                                <a class="nav-link" href="revenue-report.html">Báo cáo doanh thu</a>
-                            </nav>
-                        </div>
-                        
-                        <div class="sb-sidenav-menu-heading">Hệ thống</div>
-                        <a class="nav-link" href="settings.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
-                            Cài đặt
-                        </a>
-                        <a class="nav-link" href="users.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                            Quản lý người dùng
-                        </a>
-                    </div>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-store-alt"></i>
+                    <span class="logo-text">QUẢN TRỊ BÁN HÀNG</span>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Phiên bản: 2.1.0</div>
-                    <div class="small">Trạng thái: <span class="text-success">Online</span></div>
-                </div>
-            </nav>
-        </div>
-        
-        <!-- Main Content -->
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <div class="page-header">
-                        <h1 class="mt-4">Bảng điều khiển</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                            <li class="breadcrumb-item active">Tổng quan</li>
-                        </ol>
-                    </div>
-                    
-                    <!-- Stats Cards -->
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card stats-card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="stats-title">Tổng doanh thu</h6>
-                                            <h3 class="stats-count">$24,500</h3>
-                                            <span class="stats-change text-success"><i class="fas fa-arrow-up me-1"></i> 12.5%</span>
-                                        </div>
-                                        <div class="stats-icon bg-primary">
-                                            <i class="fas fa-dollar-sign"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="revenue-report.html" class="small text-muted d-flex align-items-center justify-content-between">
-                                        <span>Xem chi tiết</span>
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card stats-card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="stats-title">Đơn hàng</h6>
-                                            <h3 class="stats-count">156</h3>
-                                            <span class="stats-change text-success"><i class="fas fa-arrow-up me-1"></i> 8.3%</span>
-                                        </div>
-                                        <div class="stats-icon bg-success">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="orders.html" class="small text-muted d-flex align-items-center justify-content-between">
-                                        <span>Xem chi tiết</span>
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card stats-card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="stats-title">Khách hàng</h6>
-                                            <h3 class="stats-count">42</h3>
-                                            <span class="stats-change text-danger"><i class="fas fa-arrow-down me-1"></i> 2.4%</span>
-                                        </div>
-                                        <div class="stats-icon bg-warning">
-                                            <i class="fas fa-users"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="customers.html" class="small text-muted d-flex align-items-center justify-content-between">
-                                        <span>Xem chi tiết</span>
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card stats-card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="stats-title">Sản phẩm</h6>
-                                            <h3 class="stats-count">78</h3>
-                                            <span class="stats-change text-success"><i class="fas fa-arrow-up me-1"></i> 5.6%</span>
-                                        </div>
-                                        <div class="stats-icon bg-danger">
-                                            <i class="fas fa-box-open"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="products.html" class="small text-muted d-flex align-items-center justify-content-between">
-                                        <span>Xem chi tiết</span>
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Charts Row -->
-                    <div class="row">
-                        <div class="col-xl-8">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Doanh thu theo tháng</h5>
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="chartDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Năm 2023
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="chartDropdown">
-                                                <li><a class="dropdown-item" href="#">Năm 2023</a></li>
-                                                <li><a class="dropdown-item" href="#">Năm 2022</a></li>
-                                                <li><a class="dropdown-item" href="#">Năm 2021</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="revenueChart" width="100%" height="40"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">Phân loại đơn hàng</h5>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="orderStatusChart" width="100%" height="250"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Recent Orders & Top Products -->
-                    <div class="row">
-                        <div class="col-xl-8">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Đơn hàng gần đây</h5>
-                                        <a href="orders.html" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Khách hàng</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Hành động</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><a href="order-detail.html" class="text-primary">#ORD-2023-105</a></td>
-                                                    <td>Nguyễn Văn A</td>
-                                                    <td>15/06/2023</td>
-                                                    <td>$120.00</td>
-                                                    <td><span class="badge bg-success">Hoàn thành</span></td>
-                                                    <td>
-                                                        <button class="btn btn-sm btn-icon btn-outline-primary" data-bs-toggle="tooltip" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
-                                                        <button class="btn btn-sm btn-icon btn-outline-success" data-bs-toggle="tooltip" title="In hóa đơn"><i class="fas fa-print"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="order-detail.html" class="text-primary">#ORD-2023-104</a></td>
-                                                    <td>Trần Thị B</td>
-                                                    <td>16/06/2023</td>
-                                                    <td>$85.50</td>
-                                                    <td><span class="badge bg-warning">Đang xử lý</span></td>
-                                                    <td>
-                                                        <button class="btn btn-sm btn-icon btn-outline-primary" data-bs-toggle="tooltip" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
-                                                        <button class="btn btn-sm btn-icon btn-outline-success" data-bs-toggle="tooltip" title="In hóa đơn"><i class="fas fa-print"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="order-detail.html" class="text-primary">#ORD-2023-103</a></td>
-                                                    <td>Lê Văn C</td>
-                                                    <td>17/06/2023</td>
-                                                    <td>$210.75</td>
-                                                    <td><span class="badge bg-info">Đang giao</span></td>
-                                                    <td>
-                                                        <button class="btn btn-sm btn-icon btn-outline-primary" data-bs-toggle="tooltip" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
-                                                        <button class="btn btn-sm btn-icon btn-outline-success" data-bs-toggle="tooltip" title="In hóa đơn"><i class="fas fa-print"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="order-detail.html" class="text-primary">#ORD-2023-102</a></td>
-                                                    <td>Phạm Thị D</td>
-                                                    <td>18/06/2023</td>
-                                                    <td>$156.20</td>
-                                                    <td><span class="badge bg-secondary">Chờ xử lý</span></td>
-                                                    <td>
-                                                        <button class="btn btn-sm btn-icon btn-outline-primary" data-bs-toggle="tooltip" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
-                                                        <button class="btn btn-sm btn-icon btn-outline-success" data-bs-toggle="tooltip" title="In hóa đơn"><i class="fas fa-print"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Sản phẩm bán chạy</h5>
-                                        <a href="products.html" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="top-products-list">
-                                        <div class="top-product-item">
-                                            <div class="product-image">
-                                                <img src="img/products/iphone13.jpg" alt="iPhone 13">
-                                            </div>
-                                            <div class="product-info">
-                                                <h6>iPhone 13 Pro Max</h6>
-                                                <div class="product-meta">
-                                                    <span class="sales-count">128 bán</span>
-                                                    <span class="product-price">$1,099.00</span>
-                                                </div>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="top-product-item">
-                                            <div class="product-image">
-                                                <img src="img/products/samsung-s22.jpg" alt="Samsung S22">
-                                            </div>
-                                            <div class="product-info">
-                                                <h6>Samsung Galaxy S22 Ultra</h6>
-                                                <div class="product-meta">
-                                                    <span class="sales-count">92 bán</span>
-                                                    <span class="product-price">$999.00</span>
-                                                </div>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="top-product-item">
-                                            <div class="product-image">
-                                                <img src="img/products/airpods-pro.jpg" alt="AirPods Pro">
-                                            </div>
-                                            <div class="product-info">
-                                                <h6>AirPods Pro (2nd Gen)</h6>
-                                                <div class="product-meta">
-                                                    <span class="sales-count">78 bán</span>
-                                                    <span class="product-price">$249.00</span>
-                                                </div>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="top-product-item">
-                                            <div class="product-image">
-                                                <img src="img/products/macbook-air.jpg" alt="MacBook Air">
-                                            </div>
-                                            <div class="product-info">
-                                                <h6>MacBook Air M2</h6>
-                                                <div class="product-meta">
-                                                    <span class="sales-count">56 bán</span>
-                                                    <span class="product-price">$1,199.00</span>
-                                                </div>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 48%" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
             
-            <!-- Footer -->
-            <footer class="footer py-4">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between flex-wrap">
-                        <div class="text-muted">Bản quyền &copy; <span id="current-year">2023</span> Hệ thống quản trị bán hàng</div>
-                        <div class="footer-links">
-                            <a href="#" class="text-muted me-3">Chính sách bảo mật</a>
-                            <a href="#" class="text-muted me-3">Điều khoản sử dụng</a>
-                            <a href="#" class="text-muted">Hỗ trợ</a>
+            <div class="sidebar-menu">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Products Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-box-open"></i>
+                            <span>Sản phẩm</span>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link">Danh sách sản phẩm</a></li>
+                            <li><a href="#" class="nav-link">Thêm sản phẩm</a></li>
+                            <li><a href="#" class="nav-link">Danh mục</a></li>
+                            <li><a href="#" class="nav-link">Nhà cung cấp</a></li>
+                            <li><a href="#" class="nav-link">Đánh giá</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Orders Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Đơn hàng</span>
+                            <span class="badge bg-primary">15</span>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link">Tất cả đơn hàng</a></li>
+                            <li><a href="#" class="nav-link">Đơn hàng mới</a></li>
+                            <li><a href="#" class="nav-link">Đang xử lý</a></li>
+                            <li><a href="#" class="nav-link">Đang vận chuyển</a></li>
+                            <li><a href="#" class="nav-link">Đã hoàn thành</a></li>
+                            <li><a href="#" class="nav-link">Đã hủy</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Customers Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Khách hàng</span>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link">Danh sách khách hàng</a></li>
+                            <li><a href="#" class="nav-link">Nhóm khách hàng</a></li>
+                            <li><a href="#" class="nav-link">Điểm tích lũy</a></li>
+                            <li><a href="#" class="nav-link">Phiếu giảm giá</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Reports Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Báo cáo</span>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link">Doanh thu</a></li>
+                            <li><a href="#" class="nav-link">Sản phẩm bán chạy</a></li>
+                            <li><a href="#" class="nav-link">Khách hàng thân thiết</a></li>
+                            <li><a href="#" class="nav-link">Tồn kho</a></li>
+                            <li><a href="#" class="nav-link">Xuất Excel</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Marketing Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Marketing</span>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link">Email Marketing</a></li>
+                            <li><a href="#" class="nav-link">Khuyến mãi</a></li>
+                            <li><a href="#" class="nav-link">Quảng cáo</a></li>
+                            <li><a href="#" class="nav-link">Chiến dịch</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Settings Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Cài đặt</span>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="nav-link">Thông tin cửa hàng</a></li>
+                            <li><a href="#" class="nav-link">Thanh toán</a></li>
+                            <li><a href="#" class="nav-link">Vận chuyển</a></li>
+                            <li><a href="#" class="nav-link">Nhân viên</a></li>
+                            <li><a href="#" class="nav-link">Phân quyền</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                    <div class="user-info">
+                        <span class="user-name">Admin</span>
+                        <span class="user-role">Quản trị viên</span>
+                    </div>
+                    <div class="user-actions">
+                        <button class="btn btn-sm btn-icon">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <button class="btn btn-sm btn-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="btn btn-icon mobile-sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="search-box">
+                        <input type="text" placeholder="Tìm kiếm...">
+                        <button class="btn btn-icon">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <!-- Language Dropdown -->
+                    <div class="dropdown language-dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe"></i>
+                            <span>Tiếng Việt</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Tiếng Việt</a></li>
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">中文</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Notification Dropdown -->
+                    <div class="dropdown notification-dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge bg-danger">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-notification">
+                            <div class="dropdown-header">
+                                <h6>Thông báo (5)</h6>
+                                <a href="#">Đánh dấu đã đọc</a>
+                            </div>
+                            <div class="dropdown-body">
+                                <a href="#" class="dropdown-item">
+                                    <div class="notification-icon bg-primary">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="notification-info">
+                                        <h6>Đơn hàng mới #ORD-2023-456</h6>
+                                        <p>5 phút trước</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="notification-icon bg-success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="notification-info">
+                                        <h6>Đơn hàng #ORD-2023-123 đã hoàn thành</h6>
+                                        <p>2 giờ trước</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="notification-icon bg-warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="notification-info">
+                                        <h6>Cảnh báo tồn kho sản phẩm #PRO-789</h6>
+                                        <p>5 giờ trước</p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-footer">
+                                    <a href="#">Xem tất cả thông báo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Message Dropdown -->
+                    <div class="dropdown message-dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-envelope"></i>
+                            <span class="badge bg-success">3</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-message">
+                            <div class="dropdown-header">
+                                <h6>Tin nhắn (3)</h6>
+                                <a href="#">Đánh dấu đã đọc</a>
+                            </div>
+                            <div class="dropdown-body">
+                                <a href="#" class="dropdown-item">
+                                    <div class="message-avatar">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                                    </div>
+                                    <div class="message-info">
+                                        <h6>Nguyễn Thị B</h6>
+                                        <p>Em muốn hỏi về sản phẩm áo khoác...</p>
+                                        <span>30 phút trước</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="message-avatar">
+                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User">
+                                    </div>
+                                    <div class="message-info">
+                                        <h6>Trần Văn C</h6>
+                                        <p>Đơn hàng của tôi đã giao chưa?...</p>
+                                        <span>2 giờ trước</span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-footer">
+                                    <a href="#">Xem tất cả tin nhắn</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- User Dropdown -->
+                    <div class="dropdown user-dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                            <span>Admin</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user me-2"></i> Hồ sơ cá nhân
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cog me-2"></i> Cài đặt
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-lock me-2"></i> Đổi mật khẩu
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="page-actions">
+                        <div class="dropdown quick-actions">
+                            <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fas fa-plus"></i> Thao tác nhanh
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-box me-2"></i> Thêm sản phẩm</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-tag me-2"></i> Tạo khuyến mãi</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice-dollar me-2"></i> Tạo đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus me-2"></i> Thêm khách hàng</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-bullhorn me-2"></i> Tạo chiến dịch</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </footer>
-        </div>
+                
+                <!-- Stats Cards -->
+                <div class="row stats-cards">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="stat-title">Tổng doanh thu</h6>
+                                        <h2 class="stat-number">$45,389</h2>
+                                        <div class="stat-change positive">
+                                            <i class="fas fa-arrow-up"></i> 12.5% so với tháng trước
+                                        </div>
+                                    </div>
+                                    <div class="stat-icon bg-primary-light">
+                                        <i class="fas fa-dollar-sign text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="stat-title">Đơn hàng</h6>
+                                        <h2 class="stat-number">1,245</h2>
+                                        <div class="stat-change positive">
+                                            <i class="fas fa-arrow-up"></i> 8.3% so với tháng trước
+                                        </div>
+                                    </div>
+                                    <div class="stat-icon bg-success-light">
+                                        <i class="fas fa-shopping-cart text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="stat-title">Khách hàng</h6>
+                                        <h2 class="stat-number">2,456</h2>
+                                        <div class="stat-change positive">
+                                            <i class="fas fa-arrow-up"></i> 5.1% so với tháng trước
+                                        </div>
+                                    </div>
+                                    <div class="stat-icon bg-warning-light">
+                                        <i class="fas fa-users text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="stat-title">Tỷ lệ chuyển đổi</h6>
+                                        <h2 class="stat-number">3.6%</h2>
+                                        <div class="stat-change negative">
+                                            <i class="fas fa-arrow-down"></i> 1.2% so với tháng trước
+                                        </div>
+                                    </div>
+                                    <div class="stat-icon bg-danger-light">
+                                        <i class="fas fa-percentage text-danger"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="row charts-row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Doanh thu 12 tháng</h5>
+                                <div class="dropdown chart-actions">
+                                    <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#">Xuất Excel</a></li>
+                                        <li><a class="dropdown-item" href="#">In báo cáo</a></li>
+                                        <li><a class="dropdown-item" href="#">Xem chi tiết</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="revenueChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Phân loại sản phẩm</h5>
+                                <div class="dropdown chart-actions">
+                                    <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#">Xuất Excel</a></li>
+                                        <li><a class="dropdown-item" href="#">In báo cáo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="categoryChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Orders -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Đơn hàng gần đây</h5>
+                                <div class="card-actions">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                            <i class="fas fa-filter"></i> Lọc
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#">Tất cả đơn hàng</a></li>
+                                            <li><a class="dropdown-item" href="#">Đơn hàng mới</a></li>
+                                            <li><a class="dropdown-item" href="#">Đang xử lý</a></li>
+                                            <li><a class="dropdown-item" href="#">Đang vận chuyển</a></li>
+                                            <li><a class="dropdown-item" href="#">Đã hoàn thành</a></li>
+                                            <li><a class="dropdown-item" href="#">Đã hủy</a></li>
+                                        </ul>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-primary">Xem tất cả</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã đơn</th>
+                                                <th>Khách hàng</th>
+                                                <th>Ngày đặt</th>
+                                                <th>Số lượng</th>
+                                                <th>Tổng tiền</th>
+                                                <th>Trạng thái</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>#ORD-2023-456</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle me-2" width="30" height="30">
+                                                        <span>Nguyễn Thị B</span>
+                                                    </div>
+                                                </td>
+                                                <td>15/07/2023</td>
+                                                <td>3</td>
+                                                <td>$450.00</td>
+                                                <td>
+                                                    <span class="badge bg-success">Hoàn thành</span>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-ellipsis-h"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i> Xem chi tiết</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Chỉnh sửa</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i> In hóa đơn</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Xóa</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-2023-455</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" class="rounded-circle me-2" width="30" height="30">
+                                                        <span>Trần Văn C</span>
+                                                    </div>
+                                                </td>
+                                                <td>14/07/2023</td>
+                                                <td>2</td>
+                                                <td>$320.50</td>
+                                                <td>
+                                                    <span class="badge bg-warning">Đang xử lý</span>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-icon" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-ellipsis-h"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i> Xem chi tiết</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i> Chỉnh sửa</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i> In hóa đơn</a></li>
+                                                            <li><a class="dropdown-item" href="#"><i class="fas fa-trash me-2"></i> Xóa</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- More rows... -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-    
+
     <!-- Back to Top Button -->
-    <button id="backToTop" class="btn btn-primary btn-back-to-top">
+    <button class="btn btn-primary btn-back-to-top">
         <i class="fas fa-arrow-up"></i>
     </button>
-    
-    <!-- Bootstrap 5 JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
+    <!-- Scripts -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Glightbox -->
-    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
-    
-    <!-- Custom Scripts -->
+    <!-- Custom JS -->
     <script src="main.js"></script>
-    
-    <!-- Dashboard Charts -->
-    <script>
-        // Revenue Chart
-        var revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        var revenueChart = new Chart(revenueCtx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Doanh thu',
-                    data: [5000, 6200, 7000, 8100, 9200, 10500, 12000, 9500, 11000, 12500, 14000, 16000],
-                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
-                    borderColor: 'rgba(13, 110, 253, 1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: true,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: 'rgba(13, 110, 253, 1)',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: '#2a3042',
-                        titleFont: {
-                            size: 14,
-                            weight: 'bold'
-                        },
-                        bodyFont: {
-                            size: 12
-                        },
-                        padding: 12,
-                        cornerRadius: 4,
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                return '$' + context.parsed.y.toLocaleString();
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            drawBorder: false,
-                            color: 'rgba(0, 0, 0, 0.05)'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value.toLocaleString();
-                            }
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-        
-        // Order Status Chart
-        var orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
-        var orderStatusChart = new Chart(orderStatusCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Hoàn thành', 'Đang xử lý', 'Đang giao', 'Chờ xử lý', 'Đã hủy'],
-                datasets: [{
-                    data: [45, 20, 15, 12, 8],
-                    backgroundColor: [
-                        'rgba(25, 135, 84, 0.9)',
-                        'rgba(255, 193, 7, 0.9)',
-                        'rgba(13, 110, 253, 0.9)',
-                        'rgba(108, 117, 125, 0.9)',
-                        'rgba(220, 53, 69, 0.9)'
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 20,
-                            usePointStyle: true,
-                            pointStyle: 'circle'
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: '#2a3042',
-                        bodyFont: {
-                            size: 12
-                        },
-                        padding: 12,
-                        cornerRadius: 4,
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                var label = context.label || '';
-                                var value = context.raw || 0;
-                                var total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                var percentage = Math.round((value / total) * 100);
-                                return label + ': ' + value + ' (' + percentage + '%)';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 </html>

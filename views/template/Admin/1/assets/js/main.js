@@ -178,4 +178,40 @@ $(document).ready(function () {
     $('.form-select').each(function() {
         $(this).addClass('form-select-sm');
     });
+
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        if (isLoggedIn) {
+            $('body').addClass('user-logged-in');
+            $('.logged-in-user').removeClass('d-none');
+            
+            // Lấy thông tin user nếu có
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            if (userData.name) {
+                $('.logged-in-user span').text(userData.name.split('_')[0] + ' ' + userData.name.split('_')[1].charAt(0) + '.');
+                $('.profile-info h6').text(userData.name.split('_')[0] + ' ' + userData.name.split('_')[1]);
+            }
+            if (userData.avatar) {
+                $('.logged-in-user .avatar img').attr('src', userData.avatar);
+            }
+        } else {
+            $('body').removeClass('user-logged-in');
+        }
+    }
+    
+    // Xử lý đăng xuất
+    $('button.btn-logout').on('click', function(e) {
+        e.preventDefault();
+        
+        // Xóa thông tin đăng nhập
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userData');
+        
+        // Chuyển hướng về trang đăng nhập
+        window.location.href = 'login.html';
+    });
+    
+    // Kiểm tra ngay khi trang load
+    checkLoginStatus();
 });
