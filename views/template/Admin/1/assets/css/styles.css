@@ -36,6 +36,43 @@
     --border-color: #3b3b4d;
 }
 
+body.dark-mode .card {
+    background-color: #1e1e2f;
+    color: #f0f0f0;
+}
+body.dark-mode table {
+    background-color: #2b2b3c;
+    color: #f0f0f0;
+}
+body.dark-mode .table th,
+body.dark-mode .table td {
+    background-color: #2b2b3c;
+    color: #f0f0f0;
+    border-color: #444;
+}
+body.dark-mode .table-hover tbody tr:hover {
+    background-color: #3a3a4d;
+}
+body.dark-mode .form-select,
+body.dark-mode .page-link {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #444;
+}
+
+body, .card, table, .table th, .table td, .form-select, .page-link {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+input::placeholder {
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode input::placeholder {
+    color: #ccc;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -998,4 +1035,186 @@ h1, h2, h3, h4, h5, h6 {
     .breadcrumb {
         display: none;
     }
+}
+
+/* Auth Pages Styles */
+.auth-page {
+    background-color: var(--content-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.auth-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+    overflow: hidden;
+}
+
+.auth-header {
+    padding: 30px;
+    text-align: center;
+    background: var(--primary-color);
+    color: white;
+    position: relative;
+}
+
+.auth-header .brand {
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.auth-header h2 {
+    color: white;
+    margin-bottom: 5px;
+}
+
+.auth-header p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0;
+}
+
+.auth-form {
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.input-group-text {
+    background-color: var(--light-color);
+    border-color: var(--border-color);
+    color: var(--secondary-color);
+}
+
+.form-control {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.form-control:focus {
+    background-color: var(--card-bg);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.25rem rgba(115, 103, 240, 0.25);
+}
+
+.btn-block {
+    width: 100%;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.toggle-password {
+    cursor: pointer;
+}
+
+/* Products Page Styles */
+#productsTable img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.action-buttons .btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+#imagePreviewContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    border: 1px dashed var(--border-color);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Language Switcher */
+.language-switcher {
+    position: relative;
+    margin-right: 15px;
+}
+
+.language-switcher .btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 5px 10px;
+}
+
+.language-switcher .dropdown-menu {
+    min-width: auto;
+}
+
+.language-flag {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+    object-fit: cover;
+}
+
+/* Toast */
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+}
+
+.toast {
+    margin-bottom: 10px;
+}
+
+/* Performance optimizations */
+img.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img.lazy-load.loaded {
+    opacity: 1;
 }

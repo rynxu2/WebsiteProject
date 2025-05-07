@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng hợp Animation từ Cơ bản đến Nâng cao</title>
+    <style>
+        /* Reset và base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        section {
+            padding: 60px 20px;
+            border-bottom: 1px solid #eee;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 1. Fade In/Out */
+        .fade-box {
+            width: 200px;
+            height: 100px;
+            background: lightblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+
+        /* 2. Slide Down/Up */
+        .slide-box {
+            width: 200px;
+            height: 50px;
+            background: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+        .slide-content {
+            display: none;
+            background: lightgreen;
+            padding: 20px;
+            margin: 0 auto;
+            width: 200px;
+        }
+
+        /* 3. Hover Animation */
+        .btn-hover {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        .btn-hover:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+
+        /* 4. Loading Spinner */
+        .spinner-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* 5. Parallax Scrolling */
+        .parallax {
+            height: 300px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 6. Animate on Scroll (AOS) */
+        .aos-box {
+            width: 200px;
+            height: 200px;
+            background: #9b59b6;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* 7. Bounce Effect */
+        .bounce-box {
+            width: 100px;
+            height: 100px;
+            background: orange;
+            cursor: pointer;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* 8. Modal Popup Animation */
+        .modal-btn {
+            display: block;
+            margin: 20px auto;
+        }
+
+        /* 9. Infinite Rotate */
+        .rotate-box {
+            width: 50px;
+            height: 50px;
+            background: red;
+            margin: 20px auto;
+        }
+
+        /* 10. Typewriter Effect */
+        #typewriter {
+            height: 60px;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* 11. 3D Card Flip */
+        .card-flip {
+            perspective: 1000px;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        .card-flip:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border-radius: 10px;
+        }
+        .card-front {
+            background: #3498db;
+            color: white;
+        }
+        .card-back {
+            background: #e74c3c;
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* 12. Fade On Scroll */
+        .fade-on-scroll {
+            width: 200px;
+            height: 200px;
+            background: #2ecc71;
+            margin: 20px auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .fade-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 13. Staggered Grid Animation */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .grid-item {
+            height: 100px;
+            background: #3498db;
+            opacity: 0;
+            transform: translateY(50px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* 14. Horizontal Scroll */
+        .horizontal-scroll-wrapper {
+            display: flex;
+            overflow-x: hidden;
+            height: 300px;
+            width: 300vw;
+            margin: 20px 0;
+        }
+        .horizontal-section {
+            width: 100vw;
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        .horizontal-section:nth-child(1) { background: #3498db; }
+        .horizontal-section:nth-child(2) { background: #e74c3c; }
+        .horizontal-section:nth-child(3) { background: #2ecc71; }
+
+        /* 15. Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #e74c3c;
+            width: 0%;
+            z-index: 1000;
+        }
+
+        /* 16. Text Reveal */
+        .reveal-text {
+            font-size: 2rem;
+            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            transition: clip-path 1.2s ease-out;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .reveal-text.revealed {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* 17. Pin Section */
+        .pin-section {
+            height: 150vh;
+            position: relative;
+            margin: 20px 0;
+        }
+        .pin-content {
+            width: 200px;
+            height: 200px;
+            background: #9b59b6;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* 18. Scroll Snap */
+        .scroll-snap-container {
+            height: 300px;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .scroll-snap-section {
+            height: 300px;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        .scroll-snap-section:nth-child(1) { background: #3498db; }
+        .scroll-snap-section:nth-child(2) { background: #e74c3c; }
+        .scroll-snap-section:nth-child(3) { background: #2ecc71; }
+
+        /* Canvas styles */
+        #particles-js, #liquid-canvas, #cursor-trail, #shader-canvas, #3d-canvas {
+            width: 100%;
+            height: 300px;
+            display: block;
+            margin: 20px 0;
+            background: #f1f1f1;
+        }
+        #particles-js {
+            z-index: -1;
+            position: absolute;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            animation: modalopen 0.5s;
+        }
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
+    <div class="container">
+        <!-- 1. Fade In/Out -->
+        <section id="fade-section">
+            <h2>1. Fade In/Out</h2>
+            <div class="fade-box">Click để ẩn/hiện</div>
+        </section>
+
+        <!-- 2. Slide Down/Up -->
+        <section id="slide-section">
+            <h2>2. Slide Down/Up</h2>
+            <div class="slide-box">Click để trượt</div>
+            <div class="slide-content">Nội dung trượt xuống</div>
+        </section>
+
+        <!-- 3. Hover Animation -->
+        <section id="hover-section">
+            <h2>3. Hover Animation</h2>
+            <button class="btn-hover">Di chuột vào tôi</button>
+        </section>
+
+        <!-- 4. Loading Spinner -->
+        <section id="loading-section">
+            <h2>4. Loading Spinner</h2>
+            <div class="spinner-container">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Parallax Scrolling -->
+        <section id="parallax-section">
+            <h2>5. Parallax Scrolling</h2>
+            <div class="parallax" style="background-image: url('https://via.placeholder.com/1920x1080')">Parallax Effect</div>
+        </section>
+
+        <!-- 6. Animate on Scroll (AOS) -->
+        <section id="aos-section">
+            <h2>6. Animate on Scroll (AOS)</h2>
+            <div class="aos-box" data-aos="fade-up">Nội dung sẽ hiện khi cuộn</div>
+        </section>
+
+        <!-- 7. Bounce Effect -->
+        <section id="bounce-section">
+            <h2>7. Bounce Effect</h2>
+            <div class="bounce-box">Nhấn để nảy</div>
+        </section>
+
+        <!-- 8. Modal Popup Animation -->
+        <section id="modal-section">
+            <h2>8. Modal Popup Animation</h2>
+            <button class="btn btn-primary modal-btn" id="openModal">Mở Modal</button>
+            
+            <div id="exampleModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Tiêu đề Modal</h3>
+                    <p>Nội dung modal với hiệu ứng xuất hiện</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Infinite Rotate -->
+        <section id="rotate-section">
+            <h2>9. Infinite Rotate</h2>
+            <div class="rotate-box"></div>
+        </section>
+
+        <!-- 10. Typewriter Effect -->
+        <section id="typewriter-section">
+            <h2>10. Typewriter Effect</h2>
+            <p id="typewriter"></p>
+        </section>
+
+        <!-- 11. 3D Card Flip -->
+        <section id="cardflip-section">
+            <h2>11. 3D Card Flip</h2>
+            <div class="card-flip">
+                <div class="card-inner">
+                    <div class="card-front">Mặt trước</div>
+                    <div class="card-back">Mặt sau</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. Fade On Scroll -->
+        <section id="fade-scroll-section">
+            <h2>12. Fade In When Scrolled</h2>
+            <div class="fade-on-scroll">Nội dung sẽ hiện mờ khi cuộn đến</div>
+            <div style="height: 500px;"></div>
+            <div class="fade-on-scroll">Nội dung thứ hai</div>
+        </section>
+
+        <!-- 13. Staggered Grid Animation -->
+        <section id="grid-section">
+            <h2>13. Staggered Grid Animation</h2>
+            <div class="grid-container">
+                <div class="grid-item">1</div>
+                <div class="grid-item">2</div>
+                <div class="grid-item">3</div>
+                <div class="grid-item">4</div>
+                <div class="grid-item">5</div>
+                <div class="grid-item">6</div>
+            </div>
+        </section>
+
+        <!-- 14. Horizontal Scroll -->
+        <section id="horizontal-section">
+            <h2>14. Horizontal Scroll</h2>
+            <div class="horizontal-scroll-wrapper">
+                <div class="horizontal-section">Section 1</div>
+                <div class="horizontal-section">Section 2</div>
+                <div class="horizontal-section">Section 3</div>
+            </div>
+        </section>
+
+        <!-- 15. Text Reveal -->
+        <section id="reveal-section">
+            <h2>15. Text Reveal</h2>
+            <div class="reveal-text">Văn bản sẽ lộ dần khi bạn cuộn</div>
+            <div style="height: 500px;"></div>
+        </section>
+
+        <!-- 16. Pin Section -->
+        <section id="pin-section">
+            <h2>16. Pin Element While Scrolling</h2>
+            <div class="pin-section">
+                <div class="pin-content">Nội dung được ghim</div>
+            </div>
+        </section>
+
+        <!-- 17. Scroll Snap -->
+        <section id="snap-section">
+            <h2>17. Scroll Snap</h2>
+            <div class="scroll-snap-container">
+                <div class="scroll-snap-section">Section 1</div>
+                <div class="scroll-snap-section">Section 2</div>
+                <div class="scroll-snap-section">Section 3</div>
+            </div>
+        </section>
+
+        <!-- 18. Particle.js -->
+        <section id="particle-section">
+            <h2>18. Particle.js Effect</h2>
+            <div id="particles-js"></div>
+        </section>
+
+        <!-- 19. Liquid Distortion -->
+        <section id="liquid-section">
+            <h2>19. Liquid Distortion Effect</h2>
+            <canvas id="liquid-canvas"></canvas>
+        </section>
+
+        <!-- 20. Cursor Trail -->
+        <section id="cursor-section">
+            <h2>20. Interactive Cursor Trail</h2>
+            <canvas id="cursor-trail"></canvas>
+        </section>
+
+        <!-- 21. Text Scramble -->
+        <section id="scramble-section">
+            <h2>21. Text Scramble Effect</h2>
+            <p id="scramble-text"></p>
+        </section>
+
+        <!-- 22. Dynamic Gradient -->
+        <section id="gradient-section">
+            <h2>22. Dynamic Gradient Background</h2>
+            <div class="gradient-bg" style="height: 300px; width: 100%;"></div>
+        </section>
+
+        <!-- 23. 3D Object Rotation -->
+        <section id="3d-section">
+            <h2>23. 3D Object Rotation on Scroll</h2>
+            <canvas id="3d-canvas"></canvas>
+        </section>
+    </div>
+
+    <!-- Load all JavaScript libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // 1. Fade In/Out
+        $(".fade-box").click(function() {
+            $(this).fadeOut(1000).fadeIn(1000);
+        });
+
+        // 2. Slide Down/Up
+        $(".slide-box").click(function() {
+            $(".slide-content").slideToggle(500);
+        });
+
+        // 4. Loading Spinner (Bootstrap)
+        // No JS needed as it's pure CSS
+
+        // 6. Animate on Scroll (AOS)
+        AOS.init();
+
+        // 7. Bounce Effect
+        document.querySelector('.bounce-box').addEventListener('click', function() {
+            this.style.animation = 'none';
+            void this.offsetWidth; // Trigger reflow
+            this.style.animation = 'bounce 0.5s';
+        });
+
+        // 8. Modal Popup
+        const modal = document.getElementById("exampleModal");
+        const btn = document.getElementById("openModal");
+        const span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 9. Infinite Rotate
+        document.querySelector('.rotate-box').style.animation = 'rotate 2s linear infinite';
+
+        // 10. Typewriter Effect
+        const text = "Xin chào! Đây là hiệu ứng đánh máy.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        typeWriter();
+
+        // 12. Fade On Scroll
+        const fadeElements = document.querySelectorAll('.fade-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // 13. Staggered Grid Animation
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.to(".grid-item", {
+            scrollTrigger: {
+                trigger: ".grid-container",
+                start: "top 80%"
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1
+        });
+
+        // 14. Horizontal Scroll
+        document.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const wrapper = document.querySelector('.horizontal-scroll-wrapper');
+            wrapper.style.transform = `translateX(-${scrollY}px)`;
+        });
+
+        // 15. Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const height = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrollY / height) * 100;
+            document.querySelector('.scroll-progress').style.width = `${progress}%`;
+        });
+
+        // 16. Text Reveal
+        window.addEventListener('scroll', () => {
+            const text = document.querySelector('.reveal-text');
+            const rect = text.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.8) {
+                text.classList.add('revealed');
+            }
+        });
+
+        // 17. Pin Section
+        ScrollTrigger.create({
+            trigger: ".pin-section",
+            start: "top top",
+            end: "bottom bottom",
+            pin: ".pin-content",
+            pinSpacing: false
+        });
+
+        // 18. Particle.js
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { random: true },
+                size: { random: true },
+                move: { enable: true, speed: 3 }
+            }
+        });
+
+        // 21. Text Scramble
+        const scrambleText = "Hello World!";
+        const scrambleChars = "!<>-_\\/[]{}—=+*^?#________";
+        const scrambleEl = document.getElementById("scramble-text");
+
+        let scrambleFrame = 0;
+        let scrambleFrameRequest;
+
+        function scrambleTextEffect(newText) {
+            let oldText = scrambleEl.innerText;
+            let length = Math.max(oldText.length, newText.length);
+            let promise = new Promise((resolve) => {
+                const update = () => {
+                    let output = "";
+                    for (let i = 0; i < length; i++) {
+                        if (i >= newText.length) {
+                            output += "";
+                        } else if (Math.random() < 0.33 || i >= oldText.length) {
+                            output += newText[i];
+                        } else {
+                            output += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                        }
+                    }
+                    scrambleEl.innerText = output;
+                    if (scrambleFrame % 3 === 0) scrambleFrameRequest = requestAnimationFrame(update);
+                    scrambleFrame++;
+                    if (output === newText) resolve();
+                };
+                update();
+            });
+            return promise;
+        }
+
+        scrambleTextEffect(scrambleText);
+
+        // 22. Dynamic Gradient
+        // No JS needed as it's pure CSS
+
+        // 23. 3D Object Rotation
+        // Note: This is a simplified version. Real 3D effects require more complex setup
+        const canvas3d = document.getElementById("3d-canvas");
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas3d.clientWidth / canvas3d.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas3d });
+        renderer.setSize(canvas3d.clientWidth, canvas3d.clientHeight);
+
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        camera.position.z = 5;
+
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            cube.rotation.x = scrollPercent * Math.PI * 2;
+            cube.rotation.y = scrollPercent * Math.PI * 2;
+            renderer.render(scene, camera);
+        });
+
+        // Animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+            @keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .gradient-bg {
+                background: linear-gradient(45deg, #ff0000, #0000ff);
+                background-size: 400% 400%;
+                animation: gradientBG 10s ease infinite;
+            }
+            @keyframes gradientBG {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
