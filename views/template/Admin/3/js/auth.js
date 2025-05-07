@@ -1,18 +1,18 @@
-const API_URL = 'https://67ff87cd58f18d7209f19525.mockapi.io/api/v1';
+const API_URL = 'https://66434cf76c6a656587067972.mockapi.io/api/v1';
 
 // Đăng nhập
 async function login(email, password) {
     try {
         const response = await fetch(`${API_URL}/users`);
         if (!response.ok) throw new Error('Không thể kết nối đến server');
-        
+
         const users = await response.json();
         const user = users.find(u => u.email === email && u.password === password);
-        
+
         if (!user) {
             throw new Error('Email hoặc mật khẩu không đúng');
         }
-        
+
         localStorage.setItem('currentUser', JSON.stringify(user));
         return user;
     } catch (error) {
@@ -22,24 +22,33 @@ async function login(email, password) {
 }
 
 // Đăng ký
-async function register(name, email, password) {
+async function register(name, email, password, avatar) {
     try {
-        // Kiểm tra email tồn tại
         const checkResponse = await fetch(`${API_URL}/users?email=${email}`);
-        
-        const existingUsers = await checkResponse.json();
-        if (existingUsers.length > 0) {
-            throw new Error('Email đã được sử dụng');
+
+        if (!checkResponse.ok) {
+            if (checkResponse.status === 404) {
+                console.log('Email chưa được sử dụng');
+            } else {
+                throw new Error(`Lỗi server: ${checkResponse.status}`);
+            }
+        } else {
+            const existingUsers = await checkResponse.json();
+            console.log('Existing users:', existingUsers);
+
+            if (existingUsers.length > 0) {
+                throw new Error('Email đã được sử dụng');
+            }
         }
-        
-        // Tạo user mới
+
         const newUser = {
-            name,
-            email,
-            password,
-            createdAt: new Date().toISOString()
+            'name': name,
+            'avatar': avatar,
+            'email': email,
+            'password': password,
+            'createdAt': (createdAt = new Date().toISOString())
         };
-        
+
         const createResponse = await fetch(`${API_URL}/users`, {
             method: 'POST',
             headers: {
@@ -47,9 +56,9 @@ async function register(name, email, password) {
             },
             body: JSON.stringify(newUser)
         });
-        
+
         if (!createResponse.ok) throw new Error('Không thể tạo tài khoản');
-        
+
         const createdUser = await createResponse.json();
         return createdUser;
     } catch (error) {
@@ -68,20 +77,79 @@ function checkAuth() {
     return currentUser;
 }
 
-// Xử lý form đăng nhập
-$(document).ready(function() {
+$(document).ready(function () {
+    $('.input').each(function () {
+        $(this).on('blur', function () {
+            if ($(this).val().trim() != "") {
+                $(this).addClass('has-val');
+            } else {
+                $(this).removeClass('has-val');
+            }
+        });
+    });
+
+    // Kiểm tra giá trị trong ô nhập mật khẩu
+    $('input[name="password"]').on('input', function () {
+        const togglePassword = $(this).siblings('.toggle-password');
+        if ($(this).val().trim() !== "") {
+            togglePassword.show();
+        } else {
+            togglePassword.hide();
+        }
+    });
+
+    $('.toggle-password').hide();
+
+    // Toggle password visibility
+    $('.toggle-password').click(function () {
+        const passwordInput = $(this).siblings('input');
+        const icon = $(this).find('i');
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            passwordInput.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+
+    // Ô xác nhận mật khẩu
+    $('input[name="confirm_password"]').on('input', function () {
+        const togglePassword = $(this).siblings('.toggle-password');
+        if ($(this).val().trim() !== "") {
+            togglePassword.show();
+        } else {
+            togglePassword.hide();
+        }
+    });
+
+    $('.toggle-password').hide();
+
+    // Toggle password visibility
+    $('.toggle-password').click(function () {
+        const passwordInput = $(this).siblings('input');
+        const icon = $(this).find('i');
+        if (passwordInput.attr('type') === 'text') {
+            passwordInput.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            passwordInput.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+    // Xử lý form đăng nhập
     if ($('#loginForm').length) {
-        $('#loginForm').submit(async function(e) {
+        $('#loginForm').submit(async function (e) {
             e.preventDefault();
             const email = $('#email').val();
             const password = $('#password').val();
-            
+
             try {
                 const btn = $('#loginBtn');
                 btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...');
-                
+
                 await login(email, password);
-                
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Đăng nhập thành công',
@@ -101,16 +169,17 @@ $(document).ready(function() {
             }
         });
     }
-    
+
     // Xử lý form đăng ký
     if ($('#registerForm').length) {
-        $('#registerForm').submit(async function(e) {
+        $('#registerForm').submit(async function (e) {
             e.preventDefault();
             const name = $('#name').val();
             const email = $('#email').val();
             const password = $('#password').val();
             const confirmPassword = $('#confirmPassword').val();
-            
+            const avatar = $('#avatar').val();
+
             if (password !== confirmPassword) {
                 Swal.fire({
                     icon: 'error',
@@ -119,13 +188,13 @@ $(document).ready(function() {
                 });
                 return;
             }
-            
+
             try {
                 const btn = $('#registerBtn');
                 btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...');
-                
-                await register(name, email, password);
-                
+
+                await register(name, email, password, avatar);
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Đăng ký thành công',
@@ -145,5 +214,7 @@ $(document).ready(function() {
                 $('#registerBtn').prop('disabled', false).text('Đăng ký');
             }
         });
+
+
     }
 });
