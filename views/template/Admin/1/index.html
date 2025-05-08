@@ -15,7 +15,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body class="dark-mode">
+<body>
     <!-- Preloader -->
     <div class="preloader">
         <div class="loader">
@@ -55,7 +55,7 @@
             </div>
             <div class="sidebar-search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm...">
+                    <input type="text" class="form-control" data-i18n-placeholder="search" placeholder="Tìm kiếm...">
                     <button class="btn" type="button">
                         <i class="fas fa-search"></i>
                     </button>
@@ -65,57 +65,56 @@
                 <li class="active">
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="menu-text">Dashboard</span>
-                        <span class="menu-badge">Premium</span>
+                        <span data-i18n="dashboard" class="menu-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-shopping-bag"></i></span>
-                        <span class="menu-text">Đơn hàng</span>
+                        <span data-i18n="orders" class="menu-text">Đơn hàng</span>
                         <span class="menu-badge bg-danger">15</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="products.html">
                         <span class="menu-icon"><i class="fas fa-box-open"></i></span>
-                        <span class="menu-text">Sản phẩm</span>
+                        <span data-i18n="products" class="menu-text">Sản phẩm</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-users"></i></span>
-                        <span class="menu-text">Khách hàng</span>
+                        <span data-i18n="customers" class="menu-text">Khách hàng</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-chart-pie"></i></span>
-                        <span class="menu-text">Phân tích</span>
+                        <span data-i18n="analytics" class="menu-text">Phân tích</span>
                     </a>
                 </li>
-                <li class="menu-divider"><span>Quản lý</span></li>
+                <li class="menu-divider"><span data-i18n="management">Quản lý</span></li>
                 <li>
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-tags"></i></span>
-                        <span class="menu-text">Khuyến mãi</span>
+                        <span data-i18n="promotions" class="menu-text">Khuyến mãi</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-comment-dollar"></i></span>
-                        <span class="menu-text">Doanh thu</span>
+                        <span data-i18n="revenue" class="menu-text">Doanh thu</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <span class="menu-icon"><i class="fas fa-cog"></i></span>
-                        <span class="menu-text">Cài đặt</span>
+                        <span data-i18n="settings" class="menu-text">Cài đặt</span>
                     </a>
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <button class="btn btn-dark-mode">
+                <button data-i18n="darkMode" class="btn btn-dark-mode">
                     <i class="fas fa-moon"></i> Chế độ tối
                 </button>
             </div>
@@ -132,16 +131,34 @@
                                 <i class="fas fa-bars"></i>
                             </button>
                             <div class="breadcrumb">
-                                <a href="#">Dashboard</a>
+                                <a data-i18n="dashboard" href="#">Dashboard</a>
                                 <span><i class="fas fa-chevron-right"></i></span>
-                                <a href="#" class="active">Tổng quan</a>
+                                <a data-i18n="overview" href="#" class="active">Tổng quan</a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="header-right">
+                                <div class="language-switcher">
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown">
+                                            <img src="https://flagcdn.com/w20/vn.png" class="language-flag" alt="Vietnamese">
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item language-item active" href="#" data-lang="vi">
+                                                <img src="https://flagcdn.com/w20/vn.png" class="language-flag" alt="Vietnamese">
+                                                <span>Tiếng Việt</span>
+                                            </a></li>
+                                            <li><a class="dropdown-item language-item" href="#" data-lang="en">
+                                                <img src="https://flagcdn.com/w20/us.png" class="language-flag" alt="English">
+                                                <span>English</span>
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
                                 <div class="auth-buttons not-logged-in">
-                                    <a href="login.html" class="btn btn-outline-light me-2">Đăng nhập</a>
-                                    <a href="register.html" class="btn btn-primary">Đăng ký</a>
+                                    <a href="login.html" data-i18n="login" class="btn btn-outline-light me-2">Đăng nhập</a>
+                                    <a href="register.html" data-i18n="register" class="btn btn-primary">Đăng ký</a>
                                 </div>
                                 
                                 <div class="logged-in-user d-none">
@@ -151,7 +168,7 @@
                                             <i class="fas fa-chevron-down"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <button type="button" class="dropdown-item btn-logout">
+                                            <button type="button" data-i18n="logout" class="dropdown-item btn-logout">
                                                 <i class="fas fa-sign-out-alt"></i> Đăng xuất
                                             </button>
                                         </div>

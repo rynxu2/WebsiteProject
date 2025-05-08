@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopEase - Premium Online Shopping</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style rel="stylesheet" href="assets\css\index.css"></style>
-    </style>
+    <title>Register - E-Commerce Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark-mode.css" id="dark-mode-style" disabled>
 </head>
-
 <body class="font-sans bg-gray-50">
     <!-- Header/Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -21,7 +17,7 @@
                 <div class="flex items-center">
                     <a href="#" class="text-2xl font-bold text-indigo-600">ShopEase</a>
                 </div>
-
+                
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
                     <div class="dropdown relative">
@@ -41,17 +37,15 @@
                     <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">About</a>
                     <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Contact</a>
                 </nav>
-
+                
                 <!-- Icons -->
                 <div class="flex items-center space-x-5">
                     <div class="relative">
                         <button id="search-btn" class="text-gray-600 hover:text-indigo-600">
                             <i class="fas fa-search"></i>
                         </button>
-                        <div id="search-bar"
-                            class="absolute hidden right-0 mt-2 w-72 bg-white p-2 rounded-md shadow-lg">
-                            <input type="text" placeholder="Search products..."
-                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <div id="search-bar" class="absolute hidden right-0 mt-2 w-72 bg-white p-2 rounded-md shadow-lg">
+                            <input type="text" placeholder="Search products..." class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         </div>
                     </div>
                     <a href="#" class="text-gray-600 hover:text-indigo-600">
@@ -60,20 +54,18 @@
                     <div class="relative">
                         <button id="cart-btn" class="text-gray-600 hover:text-indigo-600 flex items-center">
                             <i class="fas fa-shopping-cart"></i>
-                            <span id="cart-count"
-                                class="ml-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                            <span id="cart-count" class="ml-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                         </button>
-                        <div id="cart-preview"
-                            class="cart-preview absolute hidden right-0 mt-2 w-80 bg-white rounded-md shadow-lg z-50">
+                        <div id="cart-preview" class="cart-preview absolute hidden right-0 mt-2 w-80 bg-white rounded-md shadow-lg z-50">
                             <div class="p-4 border-b">
                                 <h3 class="font-medium">Shopping Cart</h3>
                             </div>
-                            <div id="cart-items" class="max-h-60 overflow-y-auto p-4">
-                                <p class="text-gray-500 text-center py-4">Your cart is empty</p>
+                            <div class="mb-3">
+                                <label for="regEmail" class="form-label" data-i18n="email">Email</label>
+                                <input type="email" class="form-control" id="regEmail" required>
                             </div>
                             <div class="p-4 border-t">
-                                <a href="./views/template/Users/Login/index.html"
-                                    class="block w-full bg-indigo-600 text-white py-2 text-center rounded-md hover:bg-indigo-700">Checkout</a>
+                                <a href="#" class="block w-full bg-indigo-600 text-white py-2 text-center rounded-md hover:bg-indigo-700">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -85,7 +77,7 @@
                     </button>
                 </div>
             </div>
-
+            
             <!-- Mobile Navigation -->
             <div id="mobile-menu" class="mobile-menu md:hidden bg-white mt-2 rounded-md shadow-sm">
                 <div class="px-4 py-3 space-y-3">
@@ -94,8 +86,7 @@
                     <a href="#" class="block text-gray-700 hover:text-indigo-600 font-medium">Deals</a>
                     <a href="#" class="block text-gray-700 hover:text-indigo-600 font-medium">About</a>
                     <a href="#" class="block text-gray-700 hover:text-indigo-600 font-medium">Contact</a>
-                    <a href="./views/template/Users/Login/index.html"
-                        class="block text-gray-700 hover:text-indigo-600 font-medium">Account</a>
+                    <a href="#" class="block text-gray-700 hover:text-indigo-600 font-medium">Account</a>
                 </div>
             </div>
         </div>
@@ -106,9 +97,7 @@
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Summer Collection 2023</h1>
             <p class="text-xl mb-8 max-w-2xl mx-auto">Discover our new arrivals and get 20% off your first purchase</p>
-            <a href="#"
-                class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-8 rounded-md transition duration-300">Shop
-                Now</a>
+            <a href="#" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-8 rounded-md transition duration-300">Shop Now</a>
         </div>
     </section>
 
@@ -117,42 +106,34 @@
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">Shop by Category</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <a href="#"
-                    class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
                     <div class="p-6">
                         <div class="h-40 overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                                alt="Electronics" class="w-full h-full object-cover transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Electronics" class="w-full h-full object-cover transition duration-300">
                         </div>
                         <h3 class="text-lg font-medium text-center">Electronics</h3>
                     </div>
                 </a>
-                <a href="#"
-                    class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
                     <div class="p-6">
                         <div class="h-40 overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                                alt="Fashion" class="w-full h-full object-cover transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fashion" class="w-full h-full object-cover transition duration-300">
                         </div>
                         <h3 class="text-lg font-medium text-center">Fashion</h3>
                     </div>
                 </a>
-                <a href="#"
-                    class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
                     <div class="p-6">
                         <div class="h-40 overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1556911220-e15f29ce6f37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                                alt="Home & Garden" class="w-full h-full object-cover transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1556911220-e15f29ce6f37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Home & Garden" class="w-full h-full object-cover transition duration-300">
                         </div>
                         <h3 class="text-lg font-medium text-center">Home & Garden</h3>
                     </div>
                 </a>
-                <a href="#"
-                    class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
+                <a href="#" class="category-card bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition duration-300">
                     <div class="p-6">
                         <div class="h-40 overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                                alt="Beauty" class="w-full h-full object-cover transition duration-300">
+                            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beauty" class="w-full h-full object-cover transition duration-300">
                         </div>
                         <h3 class="text-lg font-medium text-center">Beauty</h3>
                     </div>
@@ -168,22 +149,15 @@
                 <h2 class="text-3xl font-bold">Featured Products</h2>
                 <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View All</a>
             </div>
-
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <!-- Product 1 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Wireless Headphones" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            SALE</div>
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Wireless Headphones" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">SALE</div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -209,18 +183,13 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Product 2 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Running Shoes" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Running Shoes" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -243,21 +212,14 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Product 3 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Smart Watch" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            NEW</div>
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Smart Watch" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -280,18 +242,13 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Product 4 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Backpack" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Backpack" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -325,13 +282,10 @@
                 <div class="md:w-1/2 mb-8 md:mb-0">
                     <h2 class="text-3xl font-bold mb-4">Summer Sale!</h2>
                     <p class="text-lg mb-6">Get up to 30% off on selected items. Limited time offer. Don't miss out!</p>
-                    <a href="#"
-                        class="inline-block bg-white text-indigo-600 hover:bg-gray-100 font-medium py-3 px-8 rounded-md transition duration-300">Shop
-                        the Sale</a>
+                    <a href="#" class="inline-block bg-white text-indigo-600 hover:bg-gray-100 font-medium py-3 px-8 rounded-md transition duration-300">Shop the Sale</a>
                 </div>
                 <div class="md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                        alt="Summer Sale" class="w-full rounded-lg shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Summer Sale" class="w-full rounded-lg shadow-lg">
                 </div>
             </div>
         </div>
@@ -344,22 +298,15 @@
                 <h2 class="text-3xl font-bold">New Arrivals</h2>
                 <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">View All</a>
             </div>
-
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <!-- Product 5 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Wireless Earbuds" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            NEW</div>
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Wireless Earbuds" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -382,18 +329,13 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Product 6 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Vintage Camera" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Vintage Camera" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -416,21 +358,14 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Product 7 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Perfume" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            NEW</div>
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Perfume" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -453,21 +388,14 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Product 8 -->
-                <div
-                    class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                            alt="Smartphone" class="w-full h-64 object-cover">
-                        <div
-                            class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            NEW</div>
-                        <div
-                            class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
-                            <button
-                                class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick
-                                View</button>
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Smartphone" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center opacity-0 hover:opacity-100 hover:bg-opacity-10 transition duration-300">
+                            <button class="quick-view-btn bg-white text-indigo-600 px-4 py-2 rounded-md font-medium">Quick View</button>
                         </div>
                     </div>
                     <div class="p-4">
@@ -510,11 +438,9 @@
                         </div>
                         <span class="text-gray-500">5/5</span>
                     </div>
-                    <p class="text-gray-700 mb-4">"The wireless headphones are amazing! Great sound quality and
-                        comfortable to wear for hours."</p>
+                    <p class="text-gray-700 mb-4">"The wireless headphones are amazing! Great sound quality and comfortable to wear for hours."</p>
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J."
-                            class="w-10 h-10 rounded-full mr-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J." class="w-10 h-10 rounded-full mr-3">
                         <div>
                             <h4 class="font-medium">Sarah J.</h4>
                             <p class="text-gray-500 text-sm">Verified Buyer</p>
@@ -532,11 +458,9 @@
                         </div>
                         <span class="text-gray-500">4.5/5</span>
                     </div>
-                    <p class="text-gray-700 mb-4">"Fast shipping and excellent customer service. The running shoes fit
-                        perfectly and are very comfortable."</p>
+                    <p class="text-gray-700 mb-4">"Fast shipping and excellent customer service. The running shoes fit perfectly and are very comfortable."</p>
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T."
-                            class="w-10 h-10 rounded-full mr-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="w-10 h-10 rounded-full mr-3">
                         <div>
                             <h4 class="font-medium">Michael T.</h4>
                             <p class="text-gray-500 text-sm">Verified Buyer</p>
@@ -554,11 +478,9 @@
                         </div>
                         <span class="text-gray-500">5/5</span>
                     </div>
-                    <p class="text-gray-700 mb-4">"I love my new smartwatch! The battery life is impressive and it has
-                        all the features I need."</p>
+                    <p class="text-gray-700 mb-4">"I love my new smartwatch! The battery life is impressive and it has all the features I need."</p>
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jennifer L."
-                            class="w-10 h-10 rounded-full mr-3">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jennifer L." class="w-10 h-10 rounded-full mr-3">
                         <div>
                             <h4 class="font-medium">Jennifer L.</h4>
                             <p class="text-gray-500 text-sm">Verified Buyer</p>
@@ -575,10 +497,8 @@
             <h2 class="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto">Get the latest updates on new products and upcoming sales</p>
             <form class="max-w-md mx-auto flex">
-                <input type="email" placeholder="Your email address"
-                    class="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-gray-900">
-                <button type="submit"
-                    class="bg-indigo-800 hover:bg-indigo-900 px-6 py-3 rounded-r-md font-medium transition duration-300">Subscribe</button>
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-gray-900">
+                <button type="submit" class="bg-indigo-800 hover:bg-indigo-900 px-6 py-3 rounded-r-md font-medium transition duration-300">Subscribe</button>
             </form>
         </div>
     </section>
@@ -589,8 +509,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">ShopEase</h3>
-                    <p class="text-gray-400 mb-4">Your one-stop shop for all your needs. Quality products at affordable
-                        prices.</p>
+                    <p class="text-gray-400 mb-4">Your one-stop shop for all your needs. Quality products at affordable prices.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
@@ -621,8 +540,7 @@
                 <div>
                     <h3 class="text-lg font-bold mb-4">Contact</h3>
                     <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> 123 Main St, City,
-                            Country</li>
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> 123 Main St, City, Country</li>
                         <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 123-4567</li>
                         <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> info@shopease.com</li>
                     </ul>
@@ -641,8 +559,7 @@
     </footer>
 
     <!-- Quick View Modal -->
-    <div id="quick-view-modal"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div id="quick-view-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto">
             <div class="flex justify-end p-4">
                 <button id="close-modal" class="text-gray-500 hover:text-gray-700">
@@ -654,14 +571,10 @@
                     <div class="md:w-1/2">
                         <img id="modal-product-image" src="" alt="Product" class="w-full rounded-lg">
                         <div class="grid grid-cols-4 gap-2 mt-4">
-                            <img src="https://via.placeholder.com/100" alt="Thumbnail"
-                                class="cursor-pointer border rounded">
-                            <img src="https://via.placeholder.com/100" alt="Thumbnail"
-                                class="cursor-pointer border rounded">
-                            <img src="https://via.placeholder.com/100" alt="Thumbnail"
-                                class="cursor-pointer border rounded">
-                            <img src="https://via.placeholder.com/100" alt="Thumbnail"
-                                class="cursor-pointer border rounded">
+                            <img src="https://via.placeholder.com/100" alt="Thumbnail" class="cursor-pointer border rounded">
+                            <img src="https://via.placeholder.com/100" alt="Thumbnail" class="cursor-pointer border rounded">
+                            <img src="https://via.placeholder.com/100" alt="Thumbnail" class="cursor-pointer border rounded">
+                            <img src="https://via.placeholder.com/100" alt="Thumbnail" class="cursor-pointer border rounded">
                         </div>
                     </div>
                     <div class="md:w-1/2">
@@ -681,8 +594,7 @@
                             <span id="modal-product-old-price" class="text-gray-500 line-through ml-2"></span>
                         </div>
                         <p id="modal-product-description" class="text-gray-700 mb-6">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
                         </p>
                         <div class="mb-6">
                             <h3 class="font-medium mb-2">Color</h3>
@@ -709,8 +621,7 @@
                                 <span class="px-4">1</span>
                                 <button class="px-3 py-1 text-xl">+</button>
                             </div>
-                            <button
-                                class="ml-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded">
+                            <button class="ml-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded">
                                 Add to Cart
                             </button>
                         </div>
@@ -728,7 +639,63 @@
         </div>
     </div>
 
-    <script src="assets\js\main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/lang.js"></script>
+    
+    <script>
+    // Xử lý đăng ký
+    $('#registerForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        const name = $('#regName').val();
+        const email = $('#regEmail').val();
+        const password = $('#regPassword').val();
+        const confirmPassword = $('#regConfirmPassword').val();
+        
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+        
+        // Kiểm tra email đã tồn tại chưa
+        $.ajax({
+            url: 'https://mockapi.io/projects/12345/users',
+            method: 'GET',
+            success: function(users) {
+                const emailExists = users.some(u => u.email === email);
+                if (emailExists) {
+                    alert('Email already registered');
+                } else {
+                    // Tạo user mới
+                    const newUser = {
+                        name: name,
+                        email: email,
+                        password: password,
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    $.ajax({
+                        url: 'https://mockapi.io/projects/12345/users',
+                        method: 'POST',
+                        data: newUser,
+                        success: function() {
+                            alert('Registration successful! Please login.');
+                            window.location.href = 'login.html';
+                        },
+                        error: function() {
+                            alert('Error registering user');
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert('Error connecting to server');
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>
