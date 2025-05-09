@@ -44,50 +44,6 @@ $(document).ready(function() {
     }
     
     // Sample data fallback
-    function getSampleProducts() {
-        return [
-            {
-                id: '1',
-                title: 'Wireless Headphones',
-                description: 'Premium noise-cancelling wireless headphones',
-                price: '199.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-01-15T10:30:00Z'
-            },
-            {
-                id: '2',
-                title: 'Smart Watch',
-                description: 'Fitness tracking and notifications',
-                price: '249.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-02-20T14:45:00Z'
-            },
-            {
-                id: '3',
-                title: 'Bluetooth Speaker',
-                description: 'Portable waterproof speaker',
-                price: '89.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-03-05T09:15:00Z'
-            },
-            {
-                id: '4',
-                title: 'Laptop Backpack',
-                description: 'Ergonomic backpack with USB charging port',
-                price: '59.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-03-10T11:20:00Z'
-            },
-            {
-                id: '5',
-                title: 'Wireless Mouse',
-                description: 'Ergonomic wireless mouse with silent clicks',
-                price: '29.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-03-15T16:30:00Z'
-            }
-        ];
-    }
     
     // Render products list - CONVERTED FROM TAILWIND TO BOOTSTRAP
     function renderProducts(productsToRender) {

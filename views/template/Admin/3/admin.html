@@ -13,6 +13,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome cho các biểu tượng -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
     <style>
         .header {
             background-color: #343a40;
@@ -155,17 +157,45 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1><i class="fas fa-users me-2"></i>Quản lý Người dùng</h1>
-                <button id="addUserBtn" class="btn btn-success">
-                    <i class="fas fa-plus me-1"></i>Thêm Người dùng
-                </button>
+            <a class="navbar-brand" href="index.html">E-commerce</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">Giỏ hàng</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button id="darkModeToggle" class="btn btn-sm btn-outline-light me-2">
+                            <i class="bi bi-moon"></i> Dark Mode
+                        </button>
+                    </li>
+                    <li class="nav-item" id="authButtons">
+                        <a class="btn btn-sm btn-outline-light me-2" href="login.html">Đăng nhập</a>
+                        <a class="btn btn-sm btn-light" href="register.html">Đăng ký</a>
+                    </li>
+                    <li class="nav-item d-none" id="userMenu">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                <span id="userName"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" id="logoutBtn">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Main Content -->
     <div class="container">
