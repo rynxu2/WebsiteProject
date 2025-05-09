@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Quản lý Người dùng</title>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome cho các biểu tượng -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        .header {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #6c757d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .actions-column {
+            min-width: 160px;
+        }
+
+        .btn-action {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .pagination {
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .search-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+        }
+
+        .spinner-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .role-admin {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .role-user {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .role-editor {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .modal-confirm {
+            max-width: 400px;
+        }
+
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .modal-confirm .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-confirm h4 {
+            color: #636363;
+        }
+
+        .modal-confirm .close {
+            position: absolute;
+            top: -5px;
+            right: -2px;
+        }
+
+        .modal-confirm .modal-body {
+            color: #999;
+        }
+
+        .modal-confirm .modal-footer {
+            border: none;
+            justify-content: center;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding: 1rem 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1><i class="fas fa-users me-2"></i>Quản lý Người dùng</h1>
+                <button id="addUserBtn" class="btn btn-success">
+                    <i class="fas fa-plus me-1"></i>Thêm Người dùng
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Thông báo -->
+        <div id="alertContainer"></div>
+
+        <!-- Hộp tìm kiếm -->
+        <div class="row search-box">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input type="text" id="searchInput" class="form-control"
+                        placeholder="Tìm kiếm theo tên hoặc email...">
+                    <button class="btn btn-primary" id="searchBtn">
+                        <i class="fas fa-search me-1"></i>Tìm kiếm
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-md-end mt-2 mt-md-0">
+                <select id="itemsPerPage" class="form-select w-50">
+                    <option value="5">5 dòng</option>
+                    <option value="10" selected>10 dòng</option>
+                    <option value="20">20 dòng</option>
+                    <option value="50">50 dòng</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Bảng danh sách người dùng -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col" style="width: 5%">#</th>
+                        <th scope="col" style="width: 20%">Tên</th>
+                        <th scope="col" style="width: 25%">Email</th>
+                        <th scope="col" style="width: 15%">Vai trò</th>
+                        <th scope="col" style="width: 15%">Ngày tạo</th>
+                        <th scope="col" style="width: 20%" class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <!-- Dữ liệu người dùng sẽ được thêm vào đây -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Hiển thị khi không có dữ liệu -->
+        <div id="noDataMessage" class="text-center py-5 d-none">
+            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">Không tìm thấy dữ liệu người dùng</h4>
+            <p class="text-muted">Vui lòng thử tìm kiếm với từ khóa khác hoặc thêm người dùng mới.</p>
+        </div>
+
+        <!-- Phân trang -->
+        <nav aria-label="Phân trang">
+            <ul class="pagination" id="pagination">
+                <!-- Các nút phân trang sẽ được thêm vào đây -->
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-0">© 2025 Hệ thống Quản lý Người dùng. Tất cả các quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- Modal thêm/chỉnh sửa người dùng -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">Thêm Người dùng Mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="userForm">
+                        <input type="hidden" id="userId">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Tên <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="userName" required>
+                            <div class="invalid-feedback">Vui lòng nhập tên người dùng</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                            <div class="invalid-feedback">Vui lòng nhập email hợp lệ</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userRole" class="form-label">Vai trò <span class="text-danger">*</span></label>
+                            <select class="form-select" id="userRole" required>
+                                <option value="">-- Chọn vai trò --</option>
+                                <option value="user">Người dùng</option>
+                                <option value="editor">Biên tập viên</option>
+                                <option value="admin">Quản trị viên</option>
+                            </select>
+                            <div class="invalid-feedback">Vui lòng chọn vai trò</div>
+                        </div>
+                        <div class="mb-3" id="passwordContainer">
+                            <label for="userPassword" class="form-label">Mật khẩu <span class="text-danger"
+                                    id="passwordRequired">*</span></label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="userPassword">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="saveUserBtn">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận xóa -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <h4 class="modal-title w-100">Xác nhận xóa</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa người dùng này không?</p>
+                    <p class="text-danger"><strong>Hành động này không thể hoàn tác!</strong></p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay loading -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-container">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Đang tải...</span>
+            </div>
+            <p class="mt-2 mb-0">Đang xử lý...</p>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Cấu hình API URLs
+        const API_BASE_URL = 'https://67ff87cd58f18d7209f19525.mockapi.io/api/v1';
+        const GET_USERS_API = API_BASE_URL + '/users';
+        const CREATE_USER_API = API_BASE_URL + '/users';
+        const UPDATE_USER_API = API_BASE_URL + '/users/{id}';
+        const DELETE_USER_API = API_BASE_URL + '/users/{id}';
+
+        // Các biến toàn cục
+        let currentPage = 1;
+        let itemsPerPage = 10;
+        let totalItems = 0;
+        let totalPages = 0;
+        let searchKeyword = '';
+        let usersList = [];
+        let isEditMode = false;
+
+        console.log('tttttttttt')
+        // Khi tài liệu đã sẵn sàng
+        $(document).ready(function () {
+
+            const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            // Khởi tạo
+            console.log('Khởi tạo hệ thống quản lý người dùng...');
+            loadUsers();
+            setupEventListeners();
+        });
+
+        // Thiết lập các sự kiện lắng nghe
+        function setupEventListeners() {
+            // Nút thêm người dùng
+            $('#addUserBtn').on('click', function () {
+                showAddUserModal();
+            });
+
+            // Nút lưu người dùng (thêm hoặc cập nhật)
+            $('#saveUserBtn').on('click', function () {
+                if (validateForm()) {
+                    saveUser();
+                }
+            });
+
+            // Nút tìm kiếm
+            $('#searchBtn').on('click', function () {
+                searchUsers();
+            });
+
+            // Tìm kiếm khi nhấn Enter
+            $('#searchInput').on('keyup', function (e) {
+                if (e.key === 'Enter') {
+                    searchUsers();
+                }
+            });
+
+            // Thay đổi số lượng hiển thị trên mỗi trang
+            $('#itemsPerPage').on('change', function () {
+                itemsPerPage = parseInt($(this).val());
+                currentPage = 1;
+                loadUsers();
+            });
+
+            // Chuyển đổi hiển thị mật khẩu
+            $('#togglePassword').on('click', function () {
+                const passwordInput = $('#userPassword');
+                const icon = $(this).find('i');
+
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+
+            // Xác nhận xóa người dùng
+            $('#confirmDeleteBtn').on('click', function () {
+                deleteUser();
+            });
+        }
+
+        // Tải danh sách người dùng từ API
+        function loadUsers() {
+            showLoading();
+            let url = GET_USERS_API;
+            if (searchKeyword) {
+                // MockAPI hỗ trợ tìm kiếm theo name
+                url += `?search=${encodeURIComponent(searchKeyword)}`;
+            }
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Dữ liệu người dùng:', data);
+                    hideLoading();
+
+                    // Lưu dữ liệu người dùng - MockAPI trả về mảng trực tiếp
+                    usersList = Array.isArray(data) ? data : (data.users || data.data || data.items || []);
+                    totalItems = usersList.length;
+                    totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                    // Hiển thị dữ liệu
+                    renderUsers(usersList);
+                    renderPagination();
+
+                })
+                .catch(error => {
+                    hideLoading();
+                    console.error('Error loading users:', error);
+
+                    // Dữ liệu mẫu để hiển thị khi API gặp lỗi
+                    showAlert('Không thể tải dữ liệu người dùng. Vui lòng thử lại sau.', 'danger');
+
+                    // Hiển thị dữ liệu mẫu cho mục đích demo
+                    const sampleUsers = getSampleUsers();
+                    usersList = sampleUsers;
+                    totalItems = sampleUsers.length;
+                    totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                    renderUsers(sampleUsers);
+                    renderPagination();
+                });
+        }
+
+        // Hiển thị danh sách người dùng
+        function renderUsers(users) {
+            const tableBody = $('#userTableBody');
+            tableBody.empty();
+
+            if (users.length === 0) {
+                $('#noDataMessage').removeClass('d-none');
+                $('.table-responsive, .pagination').addClass('d-none');
+                return;
+            }
+
+            $('#noDataMessage').addClass('d-none');
+            $('.table-responsive, .pagination').removeClass('d-none');
+
+            // Phân trang phía client
+            let start = (currentPage - 1) * itemsPerPage;
+            let end = Math.min(start + itemsPerPage, users.length);
+            let displayedUsers = users.slice(start, end);
+
+            for (let i = 0; i < displayedUsers.length; i++) {
+                const user = displayedUsers[i];
+                const rowNum = start + i + 1;
+
+                // Tạo lớp CSS cho vai trò
+                let roleClass = '';
+                switch (user.role?.toLowerCase() || 'user') {
+                    case 'admin':
+                        roleClass = 'role-admin';
+                        break;
+                    case 'editor':
+                        roleClass = 'role-editor';
+                        break;
+                    default:
+                        roleClass = 'role-user';
+                        break;
+                }
+
+                // Định dạng ngày tạo
+                const createdAt = user.createdAt
+                    ? new Date(user.createdAt).toLocaleDateString('vi-VN')
+                    : 'N/A';
+
+                // Tạo avatar bằng chữ cái đầu của tên
+                const nameInitial = (user.name || '').charAt(0).toUpperCase();
+
+                const row = `
+                    <tr class="fade-in">
+                        <td>${rowNum}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="user-avatar me-2">${nameInitial}</div>
+                                ${user.name || 'Không có tên'}
+                            </div>
+                        </td>
+                        <td>${user.email || 'Không có email'}</td>
+                        <td><span class="badge user-role ${roleClass}">${user.role || 'user'}</span></td>
+                        <td>${createdAt}</td>
+                        <td class="text-center actions-column">
+                            <button class="btn btn-sm btn-primary btn-action me-1" onclick="showEditUserModal('${user.id}')">
+                                <i class="fas fa-edit"></i> Sửa
+                            </button>
+                            <button class="btn btn-sm btn-danger btn-action" onclick="showDeleteConfirmation('${user.id}')">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </td>
+                    </tr>
+                `;
+
+                tableBody.append(row);
+            }
+        }
+
+        // Hiển thị phân trang
+        function renderPagination() {
+            const paginationElement = $('#pagination');
+            paginationElement.empty();
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+            // Nút Previous
+            const prevDisabled = currentPage === 1 ? 'disabled' : '';
+            paginationElement.append(`
+                <li class="page-item ${prevDisabled}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+            `);
+
+            // Xác định số trang hiển thị
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+
+            if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
+            }
+
+            // Nút trang đầu (nếu không bao gồm trang 1)
+            if (startPage > 1) {
+                paginationElement.append(`
+                    <li class="page-item">
+                        <a class="page-link" href="#" onclick="changePage(1); return false;">1</a>
+                    </li>
+                `);
+
+                if (startPage > 2) {
+                    paginationElement.append(`
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    `);
+                }
+            }
+
+            // Các nút trang giữa
+            for (let i = startPage; i <= endPage; i++) {
+                const active = i === currentPage ? 'active' : '';
+                paginationElement.append(`
+                    <li class="page-item ${active}">
+                        <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                    </li>
+                `);
+            }
+
+            // Nút trang cuối (nếu không bao gồm trang cuối)
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    paginationElement.append(`
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    `);
+                }
+
+                paginationElement.append(`
+                    <li class="page-item">
+                        <a class="page-link" href="#" onclick="changePage(${totalPages}); return false;">${totalPages}</a>
+                    </li>
+                `);
+            }
+
+            // Nút Next
+            const nextDisabled = currentPage === totalPages ? 'disabled' : '';
+            paginationElement.append(`
+                <li class="page-item ${nextDisabled}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            `);
+        }
+
+        // Chuyển đến trang được chọn
+        function changePage(page) {
+            if (page < 1 || page > totalPages || page === currentPage) {
+                return;
+            }
+
+            currentPage = page;
+            loadUsers();
+        }
+
+        // Tìm kiếm người dùng
+        function searchUsers() {
+            searchKeyword = $('#searchInput').val().trim();
+            currentPage = 1;
+            loadUsers();
+        }
+
+        // Hiển thị modal thêm người dùng
+        function showAddUserModal() {
+            isEditMode = false;
+            $('#userModalLabel').text('Thêm Người dùng Mới');
+            $('#userForm')[0].reset();
+            $('#userId').val('');
+            $('#passwordContainer').show();
+            $('#passwordRequired').show();
+            $('#userPassword').attr('required', true);
+
+            userModal.show();
+        }
+
+        // Hiển thị modal chỉnh sửa người dùng
+        function showEditUserModal(userId) {
+            isEditMode = true;
+            $('#userModalLabel').text('Chỉnh Sửa Người dùng');
+            $('#userForm')[0].reset();
+
+            const user = usersList.find(u => u.id === userId);
+            if (!user) return;
+
+            $('#userId').val(user.id);
+            $('#userName').val(user.name || '');
+            $('#userEmail').val(user.email || '');
+            $('#userRole').val(user.role || 'user');
+            $('#passwordContainer').show();
+            $('#passwordRequired').hide();
+            $('#userPassword').attr('required', false);
+
+            userModal.show();
+        }
+
+        // Hiển thị modal xác nhận xóa
+        function showDeleteConfirmation(userId) {
+            $('#confirmDeleteBtn').data('userId', userId);
+            deleteModal.show();
+        }
+
+        // Xác thực form
+        function validateForm() {
+            const form = $('#userForm')[0];
+
+            if (!form.checkValidity()) {
+                $(form).find(':input').each(function () {
+                    if (!this.validity.valid) {
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+
+                return false;
+            }
+
+            return true;
+        }
+
+        // Lưu người dùng (thêm mới hoặc cập nhật)
+        function saveUser() {
+            showLoading();
+
+            const userId = $('#userId').val();
+            const userData = {
+                name: $('#userName').val(),
+                email: $('#userEmail').val(),
+                role: $('#userRole').val()
+            };
+
+            const password = $('#userPassword').val();
+            if (password) {
+                userData.password = password;
+            }
+
+            let url, method;
+
+            if (isEditMode) {
+                // Cập nhật người dùng hiện có
+                url = UPDATE_USER_API.replace('{id}', userId);
+                method = 'PUT';
+            } else {
+                // Thêm người dùng mới
+                url = CREATE_USER_API;
+                method = 'POST';
+            }
+
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    hideLoading();
+                    userModal.hide();
+
+                    const message = isEditMode
+                        ? 'Người dùng đã được cập nhật thành công!'
+                        : 'Người dùng mới đã được thêm thành công!';
+
+                    showAlert(message, 'success');
+                    loadUsers();
+                })
+                .catch(error => {
+                    hideLoading();
+                    console.error('Error saving user:', error);
+
+                    // Giả lập thành công để demo
+                    userModal.hide();
+
+                    const message = isEditMode
+                        ? 'Đã cập nhật người dùng (chế độ demo)'
+                        : 'Đã thêm người dùng mới (chế độ demo)';
+
+                    showAlert(message, 'success');
+
+                    // Cập nhật dữ liệu mẫu
+                    if (isEditMode) {
+                        const userIndex = usersList.findIndex(u => u.id === parseInt(userId));
+                        if (userIndex !== -1) {
+                            usersList[userIndex] = {
+                                ...usersList[userIndex],
+                                name: userData.name,
+                                email: userData.email,
+                                role: userData.role
+                            };
+                        }
+                    } else {
+                        // Thêm người dùng mới vào danh sách mẫu
+                        const newId = Math.max(...usersList.map(u => u.id), 0) + 1;
+                        usersList.unshift({
+                            id: newId,
+                            name: userData.name,
+                            email: userData.email,
+                            role: userData.role,
+                            createdAt: new Date().toISOString()
+                        });
+                    }
+
+                    renderUsers(usersList);
+                });
+        }
+
+        // Xóa người dùng
+        function deleteUser() {
+            showLoading();
+
+            const userId = $('#confirmDeleteBtn').data('userId');
+            const url = DELETE_USER_API.replace('{id}', userId);
+
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    hideLoading();
+                    deleteModal.hide();
+
+                    showAlert('Người dùng đã được xóa thành công!', 'success');
+
+                    // Xóa người dùng khỏi danh sách hiện tại
+                    usersList = usersList.filter(user => user.id !== userId);
+                    renderUsers(usersList);
+
+                    // Nếu trang hiện tại không còn dữ liệu, quay lại trang trước
+                    if (currentPage > 1 && (currentPage - 1) * itemsPerPage >= usersList.length) {
+                        currentPage--;
+                    }
+
+                    loadUsers();
+                })
+                .catch(error => {
+                    hideLoading();
+                    deleteModal.hide();
+                    console.error('Error deleting user:', error);
+
+                    // Giả lập thành công
+                    showAlert('Đã xóa người dùng thành công (chế độ demo)', 'success');
+
+                    // Xóa người dùng khỏi danh sách mẫu
+                    usersList = usersList.filter(user => user.id !== parseInt(userId));
+
+                    // Cập nhật hiển thị
+                    renderUsers(usersList);
+
+                    // Nếu trang hiện tại không còn dữ liệu, quay lại trang trước
+                    if (currentPage > 1 && (currentPage - 1) * itemsPerPage >= usersList.length) {
+                        currentPage--;
+                        loadUsers();
+                    }
+                });
+        }
