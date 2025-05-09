@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     // Global variables
     let products = [];
@@ -6,10 +7,14 @@ $(document).ready(function() {
     // DOM elements
     const productListEl = $('#product-list');
     const cartItemsEl = $('#cart-items');
+    const miniCartItemsEl = $('#mini-cart-items');
     const emptyCartMessageEl = $('#empty-cart-message');
     const cartCountEl = $('#cart-count');
+    const miniCartCountEl = $('#mini-cart-count');
+    const cartBadgeEl = $('#cart-badge');
     const subtotalEl = $('#subtotal');
     const totalEl = $('#total');
+    const miniCartTotalEl = $('#mini-cart-total');
     const checkoutBtnEl = $('#checkout-btn');
     const searchProductEl = $('#search-product');
     
@@ -20,6 +25,7 @@ $(document).ready(function() {
         loadProducts();
         loadCartFromLocalStorage();
         renderCart();
+        renderMiniCart();
         
         // Event listeners
         searchProductEl.on('input', filterProducts);
@@ -43,53 +49,9 @@ $(document).ready(function() {
         });
     }
     
+    // // Dark mode toggle functionality
     // Sample data fallback
-    function getSampleProducts() {
-        return [
-            {
-                id: '1',
-                title: 'Wireless Headphones',
-                description: 'Premium noise-cancelling wireless headphones',
-                price: '199.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-01-15T10:30:00Z'
-            },
-            {
-                id: '2',
-                title: 'Smart Watch',
-                description: 'Fitness tracking and notifications',
-                price: '249.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-02-20T14:45:00Z'
-            },
-            {
-                id: '3',
-                title: 'Bluetooth Speaker',
-                description: 'Portable waterproof speaker',
-                price: '89.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-03-05T09:15:00Z'
-            },
-            {
-                id: '4',
-                title: 'Laptop Backpack',
-                description: 'Ergonomic backpack with USB charging port',
-                price: '59.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-03-10T11:20:00Z'
-            },
-            {
-                id: '5',
-                title: 'Wireless Mouse',
-                description: 'Ergonomic wireless mouse with silent clicks',
-                price: '29.99',
-                image: 'https://via.placeholder.com/150',
-                createdAt: '2023-03-15T16:30:00Z'
-            }
-        ];
-    }
-    
-    // Render products list - CONVERTED FROM TAILWIND TO BOOTSTRAP
+    // Render products list
     function renderProducts(productsToRender) {
         productListEl.empty();
         
@@ -148,15 +110,20 @@ $(document).ready(function() {
         
         saveCartToLocalStorage();
         renderCart();
+        renderMiniCart();
         
         // Show success feedback
         const btn = $(`.add-to-cart-btn[data-id="${productId}"]`);
         btn.html('<i class="fas fa-check"></i>');
-        btn.removeClass('bg-indigo-600 hover:bg-indigo-700').addClass('bg-success');
+        btn.css('background-color', '#10b981'); // success green color
+        
+        // Small popup to show item was added to cart
+        // const product = products.find(p => p.id === productId);
+        showSmallPopup(`Added: ${product.title}`, 'success');
         
         setTimeout(() => {
             btn.html('<i class="fas fa-plus"></i>');
-            btn.removeClass('bg-success').addClass(''); // Using our own CSS classes now
+            btn.css('background-color', ''); // back to default color
         }, 1000);
     }
     
@@ -165,6 +132,7 @@ $(document).ready(function() {
         cart = cart.filter(item => item.id !== productId);
         saveCartToLocalStorage();
         renderCart();
+        renderMiniCart();
     }
     
     // Update product quantity in cart
@@ -180,10 +148,13 @@ $(document).ready(function() {
         item.quantity = newQuantity;
         saveCartToLocalStorage();
         renderCart();
+        renderMiniCart();
     }
     
-    // Render cart items - CONVERTED FROM TAILWIND TO BOOTSTRAP
+    // Render cart items
     function renderCart() {
+        cartItemsEl.empty();
+        
         if (cart.length === 0) {
             emptyCartMessageEl.show();
             cartCountEl.text('0 items');
@@ -194,7 +165,6 @@ $(document).ready(function() {
         }
         
         emptyCartMessageEl.hide();
-        cartItemsEl.empty();
         
         let subtotal = 0;
         
@@ -251,34 +221,190 @@ $(document).ready(function() {
         
         // Update summary
         cartCountEl.text(`${cart.length} ${cart.length === 1 ? 'item' : 'items'}`);
+        cartBadgeEl.text(cart.length);
         subtotalEl.text(`$${subtotal.toFixed(2)}`);
         totalEl.text(`$${subtotal.toFixed(2)}`);
         checkoutBtnEl.prop('disabled', false);
     }
     
+    // Render mini cart
+    function renderMiniCart() {
+        miniCartItemsEl.empty();
+        
+        if (cart.length === 0) {
+            miniCartItemsEl.html('<div class="empty-mini-cart"><p>Chưa có sản phẩm</p></div>');
+            miniCartCountEl.text('0');
+            miniCartTotalEl.text('$0.00');
+            return;
+        }
+        
+        let subtotal = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const miniCartItemEl = $(`
+                <div class="mini-cart-item">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="mini-cart-item-details">
+                        <div class="mini-cart-item-title">${item.title}</div>
+                        <div class="mini-cart-item-price">
+                            $${item.price.toFixed(2)}
+                            <span class="mini-cart-item-quantity">x${item.quantity}</span>
+                        </div>
+                    </div>
+                    <button class="mini-cart-item-remove" data-id="${item.id}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `);
+            
+            miniCartItemEl.find('.mini-cart-item-remove').click(() => {
+                removeFromCart(item.id);
+            });
+            
+            miniCartItemsEl.append(miniCartItemEl);
+        });
+        
+        // Update mini cart summary
+        miniCartCountEl.text(cart.length);
+        miniCartTotalEl.text(`$${subtotal.toFixed(2)}`);
+    }
+    
     // Save cart to localStorage
     function saveCartToLocalStorage() {
-        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
     
     // Load cart from localStorage
     function loadCartFromLocalStorage() {
-        const savedCart = localStorage.getItem('shoppingCart');
+        const savedCart = localStorage.getItem('cart');
         if (savedCart) {
-            cart = JSON.parse(savedCart);
+            try {
+                cart = JSON.parse(savedCart);
+            } catch (e) {
+                console.error('Error parsing cart from localStorage:', e);
+                cart = [];
+            }
         }
     }
     
-    // Checkout button handler
+    // Checkout functionality
     checkoutBtnEl.click(function() {
-        if (cart.length === 0) return;
+        if (cart.length === 0) {
+            showPopup('Warning', 'Your cart is empty!', 'warning');
+            return;
+        }
         
-        // Here you would typically send the cart data to your backend
-        alert(`Order placed successfully! Total: ${totalEl.text()}`);
+        // Show success popup
+        showPopup('Success', 'Your purchase was completed successfully!', 'success');
         
-        // Clear cart after checkout
+        // Clear cart after successful purchase
         cart = [];
         saveCartToLocalStorage();
         renderCart();
+        renderMiniCart();
     });
+    
+    // Custom popup function
+    function showPopup(title, message, type) {
+        // Create popup elements
+        const popupOverlay = $('<div class="popup-overlay"></div>');
+        const popupContainer = $('<div class="popup-container"></div>');
+        const popupContent = $('<div class="popup-content"></div>');
+        
+        // Add appropriate icon based on type
+        let iconClass = 'fa-info-circle text-info';
+        if (type === 'success') {
+            iconClass = 'fa-check-circle text-success';
+        } else if (type === 'warning') {
+            iconClass = 'fa-exclamation-triangle text-warning';
+        } else if (type === 'error') {
+            iconClass = 'fa-times-circle text-danger';
+        }
+        
+        // Create popup HTML structure
+        popupContent.html(`
+            <div class="popup-header">
+                <i class="fas ${iconClass} fs-1 mb-3"></i>
+                <h3>${title}</h3>
+            </div>
+            <div class="popup-body">
+                <p>${message}</p>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-primary popup-close-btn">OK</button>
+            </div>
+        `);
+        
+        // Assemble and append popup to body
+        popupContainer.append(popupContent);
+        popupOverlay.append(popupContainer);
+        $('body').append(popupOverlay);
+        
+        // Add CSS to popup (normally this would be in a CSS file)
+        popupOverlay.css({
+            'position': 'fixed',
+            'top': '0',
+            'left': '0',
+            'width': '100%',
+            'height': '100%',
+            'background-color': 'rgba(0, 0, 0, 0.5)',
+            'display': 'flex',
+            'justify-content': 'center',
+            'align-items': 'center',
+            'z-index': '9999',
+            'opacity': '0',
+            'transition': 'opacity 0.3s ease'
+        });
+        
+        popupContainer.css({
+            'background-color': $('body').hasClass('dark-mode') ? '#2d3748' : '#fff',
+            'border-radius': '8px',
+            'box-shadow': '0 4px 15px rgba(0, 0, 0, 0.2)',
+            'width': '90%',
+            'max-width': '400px',
+            'transform': 'translateY(20px)',
+            'transition': 'transform 0.3s ease',
+            'overflow': 'hidden'
+        });
+        
+        popupContent.css({
+            'padding': '20px',
+            'text-align': 'center',
+            'color': $('body').hasClass('dark-mode') ? '#e2e8f0' : '#333'
+        });
+        
+        $('.popup-header').css({
+            'margin-bottom': '15px'
+        });
+        
+        $('.popup-body').css({
+            'margin-bottom': '20px'
+        });
+        
+        $('.popup-close-btn').css({
+            'min-width': '100px'
+        });
+        
+        // Animation
+        setTimeout(() => {
+            popupOverlay.css('opacity', '1');
+            popupContainer.css('transform', 'translateY(0)');
+        }, 10);
+        
+        // Close popup on button click or overlay click
+        $('.popup-close-btn, .popup-overlay').click(function(e) {
+            if (e.target === this || $(this).hasClass('popup-close-btn')) {
+                popupOverlay.css('opacity', '0');
+                popupContainer.css('transform', 'translateY(20px)');
+                
+                setTimeout(() => {
+                    popupOverlay.remove();
+                }, 300);
+            }
+        });
+    }
+    
 });

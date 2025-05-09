@@ -30,7 +30,6 @@ $(document).ready(function() {
         $.ajax({
             url: 'https://67ff87cd58f18d7209f19525.mockapi.io/api/v1/products',
             method: 'GET',
-
             success: function(data) {
                 products = data;
                 renderProducts(products);
@@ -90,24 +89,24 @@ $(document).ready(function() {
         ];
     }
     
-    // Render products list
+    // Render products list - CONVERTED FROM TAILWIND TO BOOTSTRAP
     function renderProducts(productsToRender) {
         productListEl.empty();
         
         if (productsToRender.length === 0) {
-            productListEl.append('<p class="text-gray-500">No products found</p>');
+            productListEl.append('<p class="text-muted">No products found</p>');
             return;
         }
         
         productsToRender.forEach(product => {
             const productEl = $(`
-                <div class="product-item bg-gray-50 p-4 rounded-lg flex items-center space-x-4 hover:bg-gray-100 transition duration-200 cursor-pointer">
-                    <img src="${product.image}" alt="${product.title}" class="w-16 h-16 object-cover rounded">
-                    <div class="flex-1">
-                        <h3 class="font-medium text-gray-800">${product.title}</h3>
-                        <p class="text-sm text-gray-600">$${parseFloat(product.price).toFixed(2)}</p>
+                <div class="product-item">
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    <div class="flex-grow-1">
+                        <h3>${product.title}</h3>
+                        <p>$${parseFloat(product.price).toFixed(2)}</p>
                     </div>
-                    <button class="add-to-cart-btn bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700 transition duration-200" data-id="${product.id}">
+                    <button class="add-to-cart-btn" data-id="${product.id}">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
@@ -153,11 +152,11 @@ $(document).ready(function() {
         // Show success feedback
         const btn = $(`.add-to-cart-btn[data-id="${productId}"]`);
         btn.html('<i class="fas fa-check"></i>');
-        btn.removeClass('bg-indigo-600 hover:bg-indigo-700').addClass('bg-green-500 hover:bg-green-600');
+        btn.removeClass('bg-indigo-600 hover:bg-indigo-700').addClass('bg-success');
         
         setTimeout(() => {
             btn.html('<i class="fas fa-plus"></i>');
-            btn.removeClass('bg-green-500 hover:bg-green-600').addClass('bg-indigo-600 hover:bg-indigo-700');
+            btn.removeClass('bg-success').addClass(''); // Using our own CSS classes now
         }, 1000);
     }
     
@@ -183,7 +182,7 @@ $(document).ready(function() {
         renderCart();
     }
     
-    // Render cart items
+    // Render cart items - CONVERTED FROM TAILWIND TO BOOTSTRAP
     function renderCart() {
         if (cart.length === 0) {
             emptyCartMessageEl.show();
@@ -204,23 +203,23 @@ $(document).ready(function() {
             subtotal += itemTotal;
             
             const cartItemEl = $(`
-                <div class="cart-item bg-gray-50 p-4 rounded-lg flex flex-col md:flex-row md:items-center gap-4 transition duration-200 fade-in">
-                    <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded self-start">
-                    <div class="flex-1">
-                        <h3 class="font-medium text-gray-800">${item.title}</h3>
-                        <p class="text-sm text-gray-600">$${item.price.toFixed(2)}</p>
+                <div class="cart-item fade-in">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="flex-grow-1">
+                        <h3>${item.title}</h3>
+                        <p>$${item.price.toFixed(2)}</p>
                     </div>
-                    <div class="flex items-center space-x-3">
-                        <button class="decrease-quantity bg-gray-200 hover:bg-gray-300 text-gray-800 p-1 rounded" data-id="${item.id}">
-                            <i class="fas fa-minus text-xs"></i>
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="decrease-quantity" data-id="${item.id}">
+                            <i class="fas fa-minus"></i>
                         </button>
-                        <input type="number" value="${item.quantity}" min="1" class="quantity-input border rounded py-1 px-2" data-id="${item.id}">
-                        <button class="increase-quantity bg-gray-200 hover:bg-gray-300 text-gray-800 p-1 rounded" data-id="${item.id}">
-                            <i class="fas fa-plus text-xs"></i>
+                        <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-id="${item.id}">
+                        <button class="increase-quantity" data-id="${item.id}">
+                            <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <div class="font-medium text-gray-800">$${itemTotal.toFixed(2)}</div>
-                    <button class="remove-item text-red-500 hover:text-red-700 p-2" data-id="${item.id}">
+                    <div class="fw-medium">$${itemTotal.toFixed(2)}</div>
+                    <button class="remove-item" data-id="${item.id}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -275,7 +274,7 @@ $(document).ready(function() {
         if (cart.length === 0) return;
         
         // Here you would typically send the cart data to your backend
-        alert(`Order placed successfully! Total: $${totalEl.text()}`);
+        alert(`Order placed successfully! Total: ${totalEl.text()}`);
         
         // Clear cart after checkout
         cart = [];
