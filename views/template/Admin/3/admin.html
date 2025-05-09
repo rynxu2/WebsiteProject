@@ -405,7 +405,6 @@
 
         // Tải danh sách người dùng từ API
         function loadUsers() {
-            showLoading();
             let url = GET_USERS_API;
             if (searchKeyword) {
                 // MockAPI hỗ trợ tìm kiếm theo name
@@ -421,7 +420,6 @@
                 })
                 .then(data => {
                     console.log('Dữ liệu người dùng:', data);
-                    hideLoading();
 
                     // Lưu dữ liệu người dùng - MockAPI trả về mảng trực tiếp
                     usersList = Array.isArray(data) ? data : (data.users || data.data || data.items || []);
@@ -434,7 +432,6 @@
 
                 })
                 .catch(error => {
-                    hideLoading();
                     console.error('Error loading users:', error);
 
                     // Dữ liệu mẫu để hiển thị khi API gặp lỗi
@@ -826,3 +823,6 @@
                     }
                 });
         }
+    </script>
+</body>
+</html>
